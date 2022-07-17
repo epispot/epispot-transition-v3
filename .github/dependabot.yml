@@ -10,7 +10,5 @@ updates:
       prefix: "[dep]"
       prefix-development: "[dep/dev]"
     labels:
-      - "dependencies"
-      - "low-priority :arrow_down_small:"
-      - "unsupported :no_entry:"
+      - "dependabot"
     
