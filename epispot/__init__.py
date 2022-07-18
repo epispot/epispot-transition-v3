@@ -7,7 +7,7 @@ https://epispot.github.io/epispot/en/v3.0.0-alpha-3
 """
 
 
-def _dependency_check():
+def dependency_check():
     """Checks dependencies"""
     try:
         import numpy
@@ -33,8 +33,6 @@ import random
 
 
 # dependencies
-_dependency_check()  # check for uninstalled dependencies
-del _dependency_check
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib import colors
@@ -78,7 +76,7 @@ def sanity_check():
     import sys
     if (sys.version_info[0] < 3) or \
            (sys.version_info[0] == 3 and sys.version_info[1] < 7):
-        raise RuntimeError('Epispot requires Python 3.7 or later')  # pragma: no cover
+        raise RuntimeError('epispot requires Python 3.7 or later')  # pragma: no cover
     _check_versions()
 
     # check for updates
@@ -88,7 +86,7 @@ def sanity_check():
 # version info
 version = '3.0.0-alpha-3'
 """
-Epispot's version info (updated every release)\n
+epispot's version info (updated every release)\n
 Check version information with:
 
 ```

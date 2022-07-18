@@ -9,7 +9,7 @@ will require a reference to a `Model` class to plot.
 """
 
 
-def _dependency_check():
+def dependency_check():
     """Checks dependencies"""
     try:
         import plotly
@@ -34,8 +34,6 @@ import warnings
 
 
 # dependencies
-_dependency_check()  # check for uninstalled dependencies
-del _dependency_check
 import plotly.express as px
 from matplotlib import pyplot as plt
 from matplotlib import colors

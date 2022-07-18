@@ -5,13 +5,13 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='epispot',
-    version='2.1.1',
+    version='3.0.0-alpha-3',
     author='quantum9innovation',
     author_email='dev.quantum9innovation@gmail.com',
     description='A tool for modeling infectious diseases.',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://epispot.github.io',
+    url='https://epispot.github.io/epispot/',
     project_urls={
         'Repository': 'https://github.com/epispot/epispot',
         'Changelog': 'https://github.com/epispot/epispot/tree/master/CHANGELOG.md',
@@ -22,6 +22,9 @@ setuptools.setup(
     packages=setuptools.find_packages('epispot/'),
     classifiers=[
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Operating System :: OS Independent',
         'Development Status :: 5 - Production/Stable',
@@ -30,7 +33,7 @@ setuptools.setup(
         'Intended Audience :: Science/Research',
         'Topic :: Scientific/Engineering',
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.7',
     install_requires=['matplotlib', 'numpy', ],
 )
 

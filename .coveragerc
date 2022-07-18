@@ -1,7 +1,6 @@
 [run]
 source =
     epispot
-    bin
 
 [report]
 show_missing = True
