@@ -88,16 +88,12 @@ class Model:
         
         ## **Additional Notes**
 
-        This feature is currently only released to alpha versions of 
-        epispot. This will likely be used (with minor changes) in the 
-        full release of epispot v3. For more information about this 
+        For more information about this 
         feature, or if you're interested in giving feedback, see the 
         discussion 
         [here on GitHub](https://github.com/epispot/epispot/issues/73).
 
-        .. warning::
-           As this is currently an alpha feature, the new compartmental 
-           models in epispot are subject to change.
+        .. versionadded: v3.0.0-alpha-2
 
         """
         self.initial_population = initial_population
@@ -202,15 +198,14 @@ class Model:
         
         return derivative
 
-    def integrate(self, timesteps, starting_state=None):
+    def integrate(self, timesteps, starting_state=None, delta=1):
         """
         Integrate the model using `epispot.models.Model.diff` to 
         arrive at future predictions using 
         [Euler's Method](https://en.wikipedia.org/wiki/Euler_method).
         By default, the step size (Δ) is set to exactly 1 day, as this 
         is usually the period for which epidemiological parameters are 
-        estimated for. However, in future versions, we plan to update 
-        this to add support for variable values of Δ.
+        estimated for. However, this can be changed if necessary.
 
         ## **Parameters**
 
@@ -224,6 +219,10 @@ class Model:
                                If no `starting_state` is provided, it 
                                will default to the having only 1 person
                                in the next non-Susceptible compartment.
+
+        `delta=1`: Δ: the step size for the integration process. Smaller
+                   values will result in more accurate predictions, but
+                   will be more costly.
         
         ## **Return**
 
@@ -246,12 +245,6 @@ class Model:
         ]
         ```
 
-        ## **Additional Notes**
-
-        `delta` is expected to be added as an optional parameter in
-        future releases of epispot v3. For now, however, it is set 
-        to 1 day and cannot be changed.
-
         """
         # checks to make sure the model has been compiled
         if not self.compiled:  # pragma: no cover
@@ -262,7 +255,6 @@ class Model:
 
         # initial parameter setup
         results = []
-        delta = 1
 
         if starting_state is not None:
             system = starting_state
