@@ -6,11 +6,11 @@ The following versions will receive regular security updates:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| master-latest   | ✔️ |
-| master-2.x.x   | ✔️ |
-| nightly-alpha-latest   | ✔️ |
-| nightly-latest   | ✔️ |
-| master < 2.0   | :x: |
+| main-latest   | ✔️ |
+| main-2.x.x   | ✔️ |
+| nightly-alpha-latest   | :x: |
+| nightly-latest   | :x: |
+| main < 2.0   | :x: |
 | nightly < latest   | :x: |
 
 ## Reporting a Vulnerability

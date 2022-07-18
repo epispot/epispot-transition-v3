@@ -15,7 +15,7 @@ pip install SciencePlots
 
 Additionally, all functions in this module have a `latex` flag which determines whether to use LaTeX or not.
 In order to use LaTeX, please follow the installation instructions for your operating system listed on the
-[`SciencePlots` project README](https://github.com/garrettj403/SciencePlots#faq).  <!-- spellcheck: disable -->
+[`SciencePlots` project README](https://github.com/garrettj403/SciencePlots#faq).
 
 ## Structure:
 
@@ -146,7 +146,7 @@ def stacked(Model, time_frame, title='Compartment Populations over Time',
     if log:
         plt.yscale('log')
     plt.title(title)
-    plt.legend(loc="lower center", bbox_to_anchor=(0.5, -0.2), borderaxespad=0, ncol=2)  # spellcheck: disable
+    plt.legend(loc="lower center", bbox_to_anchor=(0.5, -0.2), borderaxespad=0, ncol=2)
     plt.tight_layout()
 
     return plt

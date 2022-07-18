@@ -48,7 +48,6 @@ class Distribution:
 
         ## **Example**
 
-        <!--- spellcheck: stop -->
         ```python
         >>> from epispot.params import Distribution
         >>> dist = Distribution(
@@ -69,7 +68,6 @@ class Distribution:
         >>> dist(0)
         0.5
         ```
-        <!--- spellcheck: start -->
 
         """
         self.name = name

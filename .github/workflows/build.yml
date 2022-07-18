@@ -25,7 +25,7 @@ jobs:
       - name: (install) Run install scripts
         run: |
           # install LaTeX requirements for Actions runner
-          sudo apt-get install dvipng texlive-latex-extra texlive-fonts-recommended cm-super  # spellcheck: disable
+          sudo apt-get install dvipng texlive-latex-extra texlive-fonts-recommended cm-super
           bash scripts/runner/build.sh
       - name: (script) Run tests
         run: |
