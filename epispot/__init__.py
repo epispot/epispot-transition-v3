@@ -105,7 +105,7 @@ stable = False
 Build stability:
 
 - True ⇒ main package (stable)
-- False ⇒ nightly package (possibly unstable)
+- False ⇒ nightly (unreleased) package (possibly unstable)
 """
 
 # metadata

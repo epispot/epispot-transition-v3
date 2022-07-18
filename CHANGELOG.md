@@ -17,7 +17,7 @@ Below is the official list of epispot versions and their support status. If we p
 | 2.1   | 2.1.1 | ✔️ | ✔️ | Latest stable release |
 | 2.0   | 2.0.2 | :x: | ✔️ |
 | <= 1.1   | 1.1.0 | :x: | :x: | Deprecated |
-| nightly latest   | 2.1.1.15 | :x: | ✔️ |
+| nightly latest   | 2.1.1.15 | :x: | :x: | Deprecated |
 | **3.0.0-alpha** | **3.0.0a3** | **✔️** | **✔️** | **Supported until beta release of v3** |
 | nightly < latest  | 2.1.1.x | :x: | :x: | Deprecated |
 
@@ -32,8 +32,8 @@ For epispot v3.0.0:
 | v3.0.0-alpha-1 | N/A | 12/31/21 |
 | v3.0.0-alpha-2 | N/A | 12/31/21 |
 | v3.0.0-alpha-3 | 10/18/21 | 12/31/21 |
-| v3.0.0-beta | 12/31/21 | 1/7/22 |
-| v3.0.0 | 1/7/22 | LTS |
+| ~~v3.0.0-beta~~ | skipped | N/A |
+| v3.0.0 | **pending** | LTS |
 
 ---
 

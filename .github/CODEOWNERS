@@ -29,7 +29,7 @@
 #               you must receive an approving review from them;
 #               however you will take over as CODEOWNER of the code
 #               you modified once approved
-#    (4) Have your PR approved and merged into the nightly release of epispot
+#    (4) Have your PR approved and merged into the latest release of epispot
 #    (5) Wait until your feature passes beta trials and is released into the main package
 # If you believe that you have followed these steps but are not properly attributed to your code within this file,
 # please contact an existing CODEOWNER or a repository maintainer to have your GitHub username registered in this
@@ -80,4 +80,3 @@ requirements-*      @Quantalabs
 LICENSE                 @quantum9innovation
 SECURITY.md             @quantum9innovation @Quantalabs
 setup.py                @Quantalabs
-setup-nightly.py        @Quantalabs
