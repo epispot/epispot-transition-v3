@@ -42,7 +42,6 @@ from matplotlib import colors
 from . import comps
 from . import models
 from . import pre
-from . import fitters
 from . import plots
 
 

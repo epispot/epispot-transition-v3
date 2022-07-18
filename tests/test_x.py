@@ -18,7 +18,6 @@ def test_base():
 def test_integrity():
     """Tests epispot's integrity (ensures no module is missing)"""
     from epispot import comps
-    from epispot import fitters
     from epispot import models
     from epispot import pre
     from epispot.plots import web
