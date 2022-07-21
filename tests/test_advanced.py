@@ -17,15 +17,9 @@ import epispot as epi
 
 
 # GLOBALS
-ConstE = 2.718  # for Gaussian distributions as parameter values
-
-def R_0(t):
-    """R Naught--shifted Gaussian distribution"""
-    return 5 * ConstE ** ((- 1 / 500) * (t - 30) ** 2)
-
-def gamma(t):
-    """Gamma--Gaussian distribution decay from 1/4 to 1/8"""
-    return (1 / 8) + (1 / 8) * (ConstE ** ((-1 / 1000) * (t ** 2)))
+R_0 = epi.params.R_0(type='bell')
+p_gamma = epi.params.Gamma()
+gamma = lambda t: p_gamma(t, R_0=R_0(t), beta=2.5)
 
 
 # TESTS
@@ -57,9 +51,11 @@ def test_SIRS():
     SIRS_Model.compile()
 
     # get solutions
-    Solution = SIRS_Model.integrate(range(100), starting_state=
-                                                np.array([N - 10, 10, 0]))
-    return Solution
+    Solution = SIRS_Model.integrate(
+        range(100), starting_state=np.array([N - 10, 10, 0])
+    )
+    predicted = np.around(Solution[99], -2)
+    assert all(predicted == np.array([400000, 200000, 400000]))
 
 def test_SIHCR():
     """
@@ -102,6 +98,6 @@ def test_SIHCR():
     SIHCR_Model.compile()
 
     # get solutions
-    Solution = SIHCR_Model.integrate(range(100), starting_state=
-                                     np.array([N - 10, 10, 0, 0, 0]))
-    return Solution
+    Solution = SIHCR_Model.integrate(np.linspace(0, 20, 100))
+    predicted = np.around(Solution[99], -2)
+    assert all(predicted == np.array([313300, 0, 0, 0, 686700]))
