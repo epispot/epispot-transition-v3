@@ -40,9 +40,11 @@ from matplotlib import colors
 
 # local
 from . import comps
+from . import estimates
 from . import models
-from . import pre
+from . import params
 from . import plots
+from . import pre
 
 
 # helper funcs
@@ -58,6 +60,8 @@ def _check_updates():
     """Checks for updates"""
     pass
 
+
+# global funcs
 def sanity_check():
     """
     Sanity check to check for basic installation errors, 
@@ -80,6 +84,25 @@ def sanity_check():
 
     # check for updates
     _check_updates()
+
+def __cite__(bibtex=False):
+    """
+    Returns the citation string for the package.
+    Use `bibtex=True` to return the BibTeX-formatted citation.
+    """
+    if bibtex:
+        return '''@software{q9i_2021_4624423,
+  author       = {quantum9innovation},
+  title        = {epispot/epispot:},
+  month        = apr,
+  year         = 2021,
+  publisher    = {Zenodo},
+  version      = {2.1.1},
+  doi          = {10.5281/zenodo.4624423},
+  url          = {https://doi.org/10.5281/zenodo.4624423}
+}'''
+    else:
+        return 'quantum9innovation (2021, April 2). epispot/epispot: (Version 2.1.1). Zenodo. <http://doi.org/10.5281/zenodo.4624423>'
 
 
 # version info
@@ -114,3 +137,5 @@ docs = f'https://epispot.github.io/epispot/en/v{version}/'
 """Project documentation (version-specific)"""
 issues = 'https://www.github.com/epispot/epispot/issues'
 """Bug tracker"""
+citation = __cite__()
+"""Static citation string"""
