@@ -52,7 +52,7 @@ class Disease:
         storage.bulk.append(self)
     
     def __repr__(self):
-        return self.papers
+        return self.id
     def __str__(self):
         return self.name
     def __about__(self):
@@ -124,7 +124,7 @@ class Paper:
         self.full = full
     
     def __repr__(self):
-        return self.params
+        return self.in_text
     def __str__(self):
         if self.metadata: return self.metadata['title']
         return self.in_text
@@ -186,7 +186,7 @@ class Estimate:
         self.description = description
     
     def __repr__(self):
-        return self.dist
+        return self.id
     def __str__(self):
         return self.id
     def __about__(self):

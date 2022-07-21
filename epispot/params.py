@@ -64,13 +64,13 @@ class Distribution:
         self.description = description
     
     def __repr__(self):
-        return self.dist
+        return f'<{self.name} distribution>'
     def __str__(self):
         return self.name
     def __about__(self):
         return self.description
-    def __call__(self, z=0, *args, **kwargs):
-        return self.dist(*args, **kwargs) + z * np.random.random()
+    def __call__(self, t, z=0, *args, **kwargs):
+        return self.dist(t, *args, **kwargs) + z * np.random.random()
 
 
 class Gamma(Distribution):
@@ -93,7 +93,7 @@ class Gamma(Distribution):
         if type == 'rel-beta':
                 self.name = 'Relative-β Distribution'
                 self.description = 'Distribution of γ relative to β'
-                self.dist = lambda t: Gamma.rel_beta(t, *args, **kwargs)
+                self.dist = lambda t, R_0, beta: Gamma.rel_beta(t, R_0, beta)
     
     @staticmethod
     def rel_beta(t, R_0, beta):
@@ -145,7 +145,7 @@ class R_0(Distribution):
         if type == 'rel-beta':
                 self.name = 'Relative-β Distribution'
                 self.description = 'Distribution of γ relative to β'
-                self.dist = lambda t: R_0.rel_beta(t, *args, **kwargs)
+                self.dist = lambda t, gamma, beta: R_0.rel_beta(t, gamma, beta)
         elif type == 'logistic':
                 self.name = 'Reverse Logistic Distribution'
                 self.description = 'A reverse logistic distribution ' \
