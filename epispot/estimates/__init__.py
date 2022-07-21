@@ -7,6 +7,7 @@ used in conjunction with epispot's models.
 - getters.py
 - data.py
 - utils.py
+- storage.py
 
 .. versionadded:: v3.0.0
 

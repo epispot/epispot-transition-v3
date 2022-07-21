@@ -33,6 +33,7 @@ class Distribution:
                *(added to final result)*
 
         `*args`: Additional arguments to pass to the distribution.
+
         `**kwargs`: Additional keyword arguments to pass to the 
                     distribution.
 
@@ -102,6 +103,7 @@ class Gamma(Distribution):
         ## **Usage**
 
         `R_0`: Reproduction number
+
         `beta`: Transmission rate
 
         ## **Example**
@@ -128,12 +130,14 @@ class R_0(Distribution):
         ## **Parameters**
 
         `type='rel-beta'`: Type of distribution to use.
-                Options:
-                    * `'rel-beta'`: Relative β distribution
-                    * `'logistic'`: Logistic distribution
-                    * `'bell'`: Bell curve distribution
+
+        Options:
+            * `'rel-beta'`: Relative β distribution
+            * `'logistic'`: Logistic distribution
+            * `'bell'`: Bell curve distribution
 
         `*args`: Additional arguments to pass to the distribution.
+
         `**kwargs`: Additional keyword arguments to pass to the
                     distribution.
 
@@ -161,6 +165,7 @@ class R_0(Distribution):
         ## **Usage**
 
         `gamma`: Total recovery rate
+
         `beta`: Transmission rate
 
         ## **Example**
@@ -181,15 +186,21 @@ class R_0(Distribution):
     def logistic(t, c=1, k=1, x_0=0, y_0=1):
         """
         Reverse logistic distribution of R_0:
-        ..math:: \frac{c}{1 + e^{k(x-x_0)}} + y_0
+        <!--- $$ \\frac{c}{1 + e^{k(x-x_0)}} + y_0 $$ -->
 
         ## **Usage**
 
         `c=1`: Maximum variation
-               ..note:: With `y_0=0`, this gives the maximum *value* of 
-                        the distribution.
+
+        ..note:: 
+        
+            With `y_0=0`, this gives the maximum *value* of 
+            the distribution.
+
         `k=1`: Rate of decline
+
         `x_0=0`: Center of the distribution
+
         `y_0=1`: Minimum value
 
         ## **Example**
@@ -207,13 +218,15 @@ class R_0(Distribution):
     @staticmethod
     def bell(t, k=1/10, x_0=10, y_0=1):
         """
-        Bell curve distribution of R_0:
-        ..math:: e^{-k(x-x_0)^2}
+        Bell curve distribution of R_0:   
+        <!--- $$ e^{-k(x-x_0)^2} $$ -->
 
         ## **Usage**
 
         `k=1/10`: Variance (rate of decline)
+
         `x_0=0`: Center of the distribution
+
         `y_0=1`: Minimum value
 
         ## **Example**
@@ -238,9 +251,11 @@ class N(Distribution):
         ## **Parameters**
 
         `type='constant'`: Type of distribution to use.
-                Options:
-                    * `'constant'`: Constant population
-                    * `'linear'`: Linear population increase/decline
+
+        Options:
+        
+            * `'constant'`: Constant population
+            * `'linear'`: Linear population increase/decline
 
         `*args`: Additional arguments to pass to the distribution.
         `**kwargs`: Additional keyword arguments to pass to the
@@ -288,7 +303,9 @@ class N(Distribution):
         ## **Usage**
 
         `N_0`: Initial population size
+
         `birth`: Birth rate
+
         `death`: Death rate
 
         ## **Example**

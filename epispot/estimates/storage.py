@@ -7,3 +7,8 @@ containers which is then accessed by the methods in
 """
 
 bulk = []
+"""
+Use this list to see all estimates.  
+Any estimates added through `epispot.estimates.utils` can be queried 
+from here as well.
+"""

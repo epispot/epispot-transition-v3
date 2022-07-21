@@ -27,13 +27,13 @@ def query(match):
     ```python
     >>> from epispot.getters import query
     >>> query('SARS-CoV-2')
-    <epispot.utils.Disease object at 0x...>
+    <epispot.utils.Disease object>
+    ```
 
     ## **Error Handling**
 
     If the query returns no results, a `ValueError` will be raised.
     No errors are raised related to query format, however.
-    ```
     
     """
     # convert to list if not already

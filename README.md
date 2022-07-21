@@ -12,18 +12,18 @@ A Python package for the mathematical modeling of infectious diseases via  compa
 The epispot package currently only supports compartmental models, though we plan to expand the package to work for stochastic agent-based and spatial models as well. Currently, epispot offers the following:
 
 - Quick compilation of compartmental models with the following compartments:
-  - Susceptible
-  - Infected
-  - Recovered
-  - Removed
-  - Exposed
-  - Dead
-  - Critical
-  - Hospitalized
+    - Susceptible
+    - Infected
+    - Recovered
+    - Removed
+    - Exposed
+    - Dead
+    - Critical
+    - Hospitalized
 - Custom-defined compartments for research
 - Built-in graphing and visualization engine
-  - Plots model predictions interactively
-  - Creates comparisons between models
+    - Plots model predictions interactively
+    - Creates comparisons between models
 
 Due to its diverse range of features, epispot can be used for both research and experimental modeling. If you would like to add more modeling support, please see the [contributing section](#contributing).
 
