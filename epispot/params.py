@@ -1,14 +1,14 @@
 """
 The `epispot.params` module stores various parameter distributions and 
-estimations, many of which have been pulled from the literature. These 
-parameter distributions are divided into two classes: those useful for 
-general epidemiological analysis and those useful for the analysis of a 
-specific disease or variant of that disease.
+estimations. These parameter distributions are divided into two classes: 
+those useful for general epidemiological analysis and those useful for 
+the analysis of a specific disease or variant of that disease.
 
-All estimates from literature can be accessed by their corresponding 
-in-text citations. For full citations, use the `.__cite__()` method.
+Direct estimate from the literature are also available in the 
+`epispot.estimates` sub-package, but the underlying structure is similar 
+to `epispot.params.Distribution`.
 
-.. versionadded:: v3.0.0-beta
+.. versionadded:: v3.0.0
 
 """
 
@@ -22,8 +22,6 @@ class Distribution:
         name=None, 
         dist=lambda c: c, 
         description=None, 
-        citation=None, 
-        in_text=None
     ):
         """
         Create a distribution to use in place of parameters.
@@ -54,16 +52,6 @@ class Distribution:
         ...     name='Logistic',
         ...     dist=lambda t: 1 / (1 + np.exp(-t)),
         ...     description='A logistic distribution',
-        ...     citation='@book{garnier1838correspondance,\n'   \
-                         'title={Correspondance math{\'e}matique et physique},\n'   \
-                         'author={Garnier, J.G. and Quetelet, A.}\n'    \
-                         'number={v. 10}\n' \
-                         'lccn={03003361}\n'    \
-                         'url={https://books.google.com/books?id=8GsEAAAAYAAJ}\n'   \
-                         'year={1838}\n'    \
-                         'publisher={Impr. d'H. Vandekerckhove}\n'  \
-                         '}',
-        ...     in_text='Verhulst 1838'
         ... )
         >>> dist(0)
         0.5
@@ -73,8 +61,6 @@ class Distribution:
         self.name = name
         self.dist = dist
         self.description = description
-        self.citation = citation
-        self.in_text = in_text
     
     def __repr__(self):
         return self.dist
@@ -84,10 +70,6 @@ class Distribution:
         return self.description
     def __call__(self, z=0, *args, **kwargs):
         return self.dist(*args, **kwargs) + z * np.random.random()
-    def __cite__(self, type='full'):
-        if type == 'full': return self.citation
-        elif type == 'short': return self.in_text
-        elif type == 'both': return f'{self.citation} ({self.in_text})'
 
 
 class Gamma(Distribution):
@@ -327,10 +309,3 @@ class N(Distribution):
         if callable(death): death = death(t)
         return N_0 * (1 + birth * t - death * t)
                 
-
-class Estimate(Distribution):
-    """
-    TODO: Tracked in [#135](https://github.com/epispot/epispot/issues/135)
-    """
-    pass
- 
