@@ -54,7 +54,12 @@ def _check_versions():
 
 def _check_install():  # pragma: no cover
     """Checks for installation errors"""
-    pass
+    raise RuntimeError(
+        'It seems that this installation of epispot '
+        + 'may have been corrupted.\n'
+        + 'Please check for the latest version of epispot listed here:\n'
+        + 'https://pypi.org/project/epispot/\n'
+    )
 
 def _check_updates():
     """Checks for updates"""
@@ -78,7 +83,7 @@ def sanity_check():
     # check for version conflicts
     import sys
     if (sys.version_info[0] < 3) or \
-           (sys.version_info[0] == 3 and sys.version_info[1] < 7):
+       (sys.version_info[0] == 3 and sys.version_info[1] < 7):
         raise RuntimeError('epispot requires Python 3.7 or later')  # pragma: no cover
     _check_versions()
 
@@ -106,7 +111,7 @@ def __cite__(bibtex=False):
 
 
 # version info
-version = '3.0.0-alpha-3'
+version = '3.0.0'
 """
 epispot's version info (updated every release)\n
 Check version information with:
