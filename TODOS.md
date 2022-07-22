@@ -10,11 +10,11 @@ Before the v3 transition:
 
 ## Bugs
 
-- [ ] Check parameter noise and `**kwargs` in `params`
-- [ ] Get rid of negative compartment values
+- [x] Check parameter noise and `**kwargs` in `params`
+- [x] Get rid of negative compartment values (*partially*)
 
 ## External
 
 - [x] Add support for Python 3.10
 - [x] Get rid of `pytest` dependency warnings
-- [x] Increase code coverage to 100%
+- [x] Increase code coverage to 100% (*partially*)
