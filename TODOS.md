@@ -5,13 +5,13 @@ Before the v3 transition:
 
 ## Source
 
-- [ ] Allow args to be passed to `integrate` through `plots`
+- [x] Allow args to be passed to `integrate` through `plots`
 - [ ] More is still to come
 
 ## Bugs
 
+- [ ] Check parameter noise and `**kwargs` in `params`
 - [ ] Get rid of negative compartment values
-- [ ] Examine cases of parameter swapping (see `params`)
 
 ## External
 
