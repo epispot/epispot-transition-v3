@@ -16,8 +16,7 @@ from . import px
 
 
 def model(Model, time_frame, title='Compartment Populations over Time', 
-          starting_state=None, show_susceptible=False, log=False, 
-          colors=None):
+          show_susceptible=False, log=False, colors=None, **kwargs):
     """
     Plots the results of one model using `plotly`.
     The results are displayed in-browser via a `localhost`.
@@ -27,7 +26,6 @@ def model(Model, time_frame, title='Compartment Populations over Time',
     - Model: An `epispot.models.Model` object
     - time_frame: A `range()` describing the time period to plot
     - title: (`='Compartment Populations over Time`) The title of the plot
-    - starting_state: (default:inherited) Initial model state (see `epispot.models.Model.integrate` parameter `starting_state`)
     - show_susceptible: (`=False`) Boolean value describing whether or not to plot the Susceptible compartment.\
                                    **This assumes that the Susceptible compartment is the first in `Model`**\
                                    Note:\
@@ -36,11 +34,12 @@ def model(Model, time_frame, title='Compartment Populations over Time',
                                    > more individuals than the other compartments combined.
     - log: (`=False`) Boolean value indicating whether or not to use a logarithmic scale when plotting `Model`
     - colors: (default:plotly default) A list of CSS-valid colors to cycle through in the plot
+    - `**kwargs**`: Keyword arguments to pass into `Model.integrate`
     - return: `plotly` figure (display in-browser with `.show()`)
     """
 
     DataFrame = {}
-    System = Model.integrate(time_frame, starting_state=starting_state)
+    System = Model.integrate(time_frame, **kwargs)
     
     # variable substitutions
     names = Model.names
@@ -88,8 +87,7 @@ def model(Model, time_frame, title='Compartment Populations over Time',
 
 
 def stacked(Model, time_frame, title='Compartment Populations over Time', 
-            starting_state=None, show_susceptible=False, log=False, 
-            colors=None):
+            show_susceptible=False, log=False, colors=None, **kwargs):
     """
     Plots the results of one model using `plotly` as a stacked area chart.
     The results are displayed in-browser via a `localhost`.
@@ -99,7 +97,6 @@ def stacked(Model, time_frame, title='Compartment Populations over Time',
     - Model: An `epispot.models.Model` object
     - time_frame: A `range()` describing the time period to plot
     - title: (`='Compartment Populations over Time`) The title of the plot
-    - starting_state: (default:inherited) Initial model state (see `epispot.models.Model.integrate` parameter `starting_state`)
     - show_susceptible: (`=False`) Boolean value describing whether or not to plot the Susceptible compartment.\
                                    **This assumes that the Susceptible compartment is the first in `Model`**\
                                    Note:\
@@ -108,11 +105,12 @@ def stacked(Model, time_frame, title='Compartment Populations over Time',
                                    > more individuals than the other compartments combined.
     - log: (`=False`) Boolean value indicating whether or not to use a logarithmic scale when plotting `Model`
     - colors: (default:plotly default) A list of CSS-valid colors to cycle through in the plot
+    - `**kwargs**`: Keyword arguments to pass into `Model.integrate`
     - return: `plotly` figure (display in-browser with `.show()`)
     """
 
     DataFrame = {}
-    System = Model.integrate(time_frame, starting_state=starting_state)
+    System = Model.integrate(time_frame, **kwargs)
 
     # variable substitutions
     names = Model.names
