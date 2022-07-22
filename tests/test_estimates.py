@@ -22,16 +22,18 @@ def test_santos():
     delta = epi.estimates.getters.query(paper + 'delta')
 
     # create required params
-    p_R_0 = epi.params.R_0()
-    R_0 = lambda t: p_R_0(t, gamma=gamma(t), beta=beta(t))
+    R_0 = epi.params.R_0(gamma=gamma, beta=beta)
     N = 109.6e6  # Philippines
 
     # set up model
     Model = epi.pre.SEIR(R_0, gamma, N, delta)
 
     # get solutions
-    Solution = Model.integrate(range(100))
-    return Solution
+    Solution = Model.integrate(np.linspace(0, 50, 200), delta=0.25)
+    predicted = np.around(Solution[199], -2)
+    assert all(
+        predicted == np.array([1.12e4, 1.0533e6, 3.2587e6, 1.052769e8])
+    )
 
 def test_bentout():
     """SEIR Model using estimated initial parameters"""
@@ -49,8 +51,13 @@ def test_bentout():
     Model = epi.pre.SEIR(R_0, gamma, N, delta)
 
     # get solutions
-    Solution = Model.integrate(range(100))
-    return Solution
+    Solutions = Model.integrate(
+        range(100), starting_state=np.array([N - 100, 100, 0, 0])
+    )
+    predicted = np.around(Solutions[99], -2)
+    assert all(
+        predicted == np.array([18050200, 7308800, 9223400, 9267600])
+    )
 
 test_santos()
 test_bentout()
