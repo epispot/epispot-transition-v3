@@ -191,7 +191,5 @@ class Estimate:
         return self.id
     def __about__(self):
         return self.name + ': ' + self.description
-    def __call__(self, z=0, *args, **kwargs):
-        if callable(self.dist):
-            return self.dist(*args, **kwargs) + z * np.random.random()
-        return self.dist + z * np.random.random()
+    def __call__(self, t, z=0, **kwargs):
+        return self.dist(t, **kwargs) + z * np.random.standard_normal()

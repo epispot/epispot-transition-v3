@@ -22,79 +22,79 @@ from . import dt
 # Estimates
 beta_santos = utils.Estimate(
     id='beta',
-    dist=2.93,
+    dist=lambda t: 2.93,
     name='Constant-valued approximation of Beta',
     description='Estimated using an SEIR model and fit via a genetic algorithm using data from the Philippines',
 )
 delta_santos = utils.Estimate(
     id='delta',
-    dist=0.28,
+    dist=lambda t: 0.28,
     name='Constant-valued approximation of Delta',
     description='Estimated using an SEIR model and fit via a genetic algorithm using data from the Philippines; referred to in the paper as "sigma," though it still represents the incubation rate delta',
 )
 gamma_santos = utils.Estimate(
     id='gamma',
-    dist=0.33,
+    dist=lambda t: 0.33,
     name='Constant-valued approximation of Gamma',
     description='Estimated using an SEIR model and fit via a genetic algorithm using data from the Philippines; represents the removal rate in particular (not recovery rate)',
 )
 kappa_tsay = utils.Estimate(
     id='kappa',
-    dist=0.2,
+    dist=lambda t: 0.2,
     name='Average testing rate',
     description='Estimated using data from the U.S. in the context of an SEAIR model; represents the probability of asymptomatic individuals becoming officially confirmed as infected cases',
 )
 gamma_tsay = utils.Estimate(
     id='gamma',
-    dist=0.0255,
+    dist=lambda t: 0.0255,
     name='Average recovery rate',
     description='Estimated using data from the U.S. in the context of an SEAIR model; referred to as "beta" in the paper',
 )
 rho_tsay = utils.Estimate(
     id='rho',
-    dist=0.0255,
+    dist=lambda t: 0.0255,
     name='Average death rate',
     description='Estimated using data from the U.S. in the context of an SEAIR model; referred to as "mu" in the paper',
 )
 r0_bentout = utils.Estimate(
     id='R_0',
-    dist=4.1,
+    dist=lambda t: 4.1,
     name='Estimated initial R Naught',
     description='Estimated using data from the beginning of Algeria\'s COVID-19 outbreak in the context of an SEIR model',
 )
 beta_bentout = utils.Estimate(
     id='beta',
-    dist=0.41,
+    dist=lambda t: 0.41,
     name='Estimated initial Beta',
     description='Estimated using data from the beginning of Algeria\'s COVID-19 outbreak in the context of an SEIR model',
 )
 gamma_bentout = utils.Estimate(
     id='gamma',
-    dist=0.1,
+    dist=lambda t: 0.1,
     name='Gamma approximation (pulled from various sources)',
     description='Estimated using data from the beginning of Algeria\'s COVID-19 outbreak in the context of an SEIR model; represents the removal (not recovery) rate',
 )
 delta_bentout = utils.Estimate(
     id='delta',
-    dist=0.2,
+    dist=lambda t: 0.2,
     name='Delta approximation (pulled from various sources including the WHO Coronavirus dataset)',
     description='Estimated using data from the beginning of Algeria\'s COVID-19 outbreak in the context of an SEIR model; referred to as "lambda" in the paper',
 )
 gamma_mehra = utils.Estimate(
     id='gamma',
-    dist=0.222,
+    dist=lambda t: 0.222,
     name='Average Gamma estimate',
     description='Estimated using data from South Korea and the U.S. in the context of a SQAIR model; represents the recovery rate; referred to as "g" in the paper',
 )
 rho_mehra = utils.Estimate(
     id='rho',
-    dist=0.0257,
+    dist=lambda t: 0.0257,
     name='Average Rho estimate',
     description='Estimated using data from South Korea and the U.S. in the context of a SQAIR model; represents the death rate; referred to as "mu sub d" in the paper',
 )
 kappa_mehra = utils.Estimate(
     id='kappa',
-    dist=0.214,
+    dist=lambda t: 0.214,
     name='Average testing rate estimate',
     description='Estimated using data from South Korea and the U.S. in the context of a SQAIR model; represents the probability of asymptomatic individuals becoming officially confirmed as infected cases; referred to as "alpha" in the paper but renamed to kappa for consistency',
 )
