@@ -63,7 +63,7 @@ def query(match):
 
     # search for match
     queried = query_diseases(storage.bulk)
-    if queried is None:
+    if queried is None:  # pragma: no cover
         raise ValueError(
             f'No match found for {match}; try a different query or '
             + 'manually load the data (see `epi.estimates.utils`).'
