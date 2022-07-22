@@ -18,8 +18,7 @@ import epispot as epi
 
 # GLOBALS
 R_0 = epi.params.R_0(type='bell')
-p_gamma = epi.params.Gamma()
-gamma = lambda t: p_gamma(t, R_0=R_0(t), beta=2.5)
+gamma = epi.params.Gamma(R_0=R_0, beta=2.5)
 
 
 # TESTS
