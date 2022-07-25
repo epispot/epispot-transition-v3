@@ -7,7 +7,7 @@ STRUCTURE:
 └ main
 """
 
-from os import mkdir
+from os import mkdir, path
 import numpy as np
 import epispot as epi
 
@@ -43,7 +43,8 @@ def test_main():
     predicted = Solution[99]
     
     # save model
-    mkdir('tests/artifacts')
+    if not path.exists('tests/artifacts'):
+        mkdir('tests/artifacts')
     SIR_Model.save('tests/artifacts/SIR_Model.epi')
 
     # load model
