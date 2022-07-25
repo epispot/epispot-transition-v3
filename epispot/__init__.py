@@ -30,21 +30,13 @@ def dependency_check():
 # imports
 import warnings
 import random
+import dill
 
 
 # dependencies
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib import colors
-
-
-# local
-from . import comps
-from . import estimates
-from . import models
-from . import params
-from . import plots
-from . import pre
 
 
 # helper funcs
@@ -132,6 +124,16 @@ Build stability:
 - True ⇒ main package (stable)
 - False ⇒ nightly (unreleased) package (possibly unstable)
 """
+
+
+# local
+from . import comps
+from . import estimates
+from . import models
+from . import params
+from . import plots
+from . import pre
+
 
 # metadata
 source = 'https://www.github.com/epispot/epispot'

@@ -7,8 +7,10 @@ the package to generate plots, run predictions, etc.
 """
 
 from copy import deepcopy
+from . import dill
 from . import warnings
 from . import np
+from . import version
 
 
 class Model:
@@ -104,6 +106,7 @@ class Model:
         self.matrix = matrix
         self.aggregated = None
         self.compiled = False
+        self.version = version
 
     def compile(self, custom=False):
         """
@@ -336,3 +339,59 @@ class Model:
         self.names = names
         for i, comp in enumerate(self.compartments):
             comp.name = names[i]
+
+    def save(self, filename):
+        """
+        Save the model to a file. This can be used to load the model 
+        later. Standard file ending is `.epi`.
+
+        ## Parameters
+
+        `filename`: Name of the file to save the model to
+
+        ## Error Handling
+
+        - If the file already exists, it will be overwritten.
+        - If the model is not compiled, it will raise a `ValueError`.
+
+        """
+        if not self.compiled:  # pragma: no cover
+            raise ValueError('Model has not been compiled yet. '
+                             'Cannot save model.')
+
+        with open(filename, 'wb') as f:
+            dill.dump(self, f)
+
+    @classmethod
+    def load(cls, filename):
+        """
+        Load a model from a file.
+
+        ## Parameters
+
+        `filename`: Name of the file to load the model from
+
+        ## Security
+
+        **Warning**:
+        Be careful when loading a model from a file. Untrusted sources
+        could potentially embed malicious code into various parts of the
+        model which can lead to arbitrary code execution.
+
+        ## Error Handling
+
+        - If the file does not exist, it will raise a 
+          `FileNotFoundError`.
+
+        """
+        with open(filename, 'rb') as f:
+            loaded = dill.load(f)
+            if not loaded.compiled:  # pragma: no cover
+                loaded.compile()
+            if loaded.version != version:  # pragma: no cover
+                warnings.warn(
+                    'This model has been imported from an '
+                    f'older version of epispot v{loaded.version}. '
+                    f'You have epispot v{version}.'
+                )
+            return loaded
