@@ -24,7 +24,9 @@ def model(Model, time_frame, title='Compartment Populations over Time',
     the time frame or compartments displayed.
 
     - Model: An `epispot.models.Model` object
-    - time_frame: A `range()` describing the time period to plot
+    - time_frame: A `range()` describing the time period to plot;
+                  use `timesteps=` keyword argument to use `np.linspace`
+                  as the `time_frame` is simply for the x-axis
     - title: (`='Compartment Populations over Time`) The title of the plot
     - show_susceptible: (`=False`) Boolean value describing whether or not to plot the Susceptible compartment.\
                                    **This assumes that the Susceptible compartment is the first in `Model`**\
@@ -95,7 +97,9 @@ def stacked(Model, time_frame, title='Compartment Populations over Time',
     the time frame or compartments displayed.
 
     - Model: An `epispot.models.Model` object
-    - time_frame: A `range()` describing the time period to plot
+    - time_frame: A `range()` describing the time period to plot;
+                  use `timesteps=` keyword argument to use `np.linspace`
+                  as the `time_frame` is simply for the x-axis
     - title: (`='Compartment Populations over Time`) The title of the plot
     - show_susceptible: (`=False`) Boolean value describing whether or not to plot the Susceptible compartment.\
                                    **This assumes that the Susceptible compartment is the first in `Model`**\

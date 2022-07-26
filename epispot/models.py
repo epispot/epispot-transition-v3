@@ -201,7 +201,7 @@ class Model:
         
         return derivative
 
-    def integrate(self, timesteps, starting_state=None, delta=1):
+    def integrate(self, timesteps, starting_state=None):
         """
         Integrate the model using `epispot.models.Model.diff` to 
         arrive at future predictions using 
@@ -266,6 +266,8 @@ class Model:
             system[0] = self.initial_population - 1
             system[1] = 1
 
+        delta = timesteps[1] - timesteps[0]
+        
         for timestep in timesteps:
 
             # calculate the derivative for each compartment at this 
