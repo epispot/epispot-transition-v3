@@ -117,7 +117,7 @@ property, included for legacy support.
 """
 __version__ = version  # alias for version
 
-stable = False
+stable = True
 """
 Build stability:
 
