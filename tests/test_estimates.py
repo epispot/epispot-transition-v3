@@ -29,10 +29,10 @@ def test_santos():
     Model = epi.pre.SEIR(R_0, gamma, N, delta)
 
     # get solutions
-    Solution = Model.integrate(np.linspace(0, 50, 200), delta=0.25)
+    Solution = Model.integrate(np.linspace(0, 50, 200))
     predicted = np.around(Solution[199], -2)
-    assert all(
-        predicted == np.array([1.12e4, 1.0533e6, 3.2587e6, 1.052769e8])
+    assert np.allclose(
+        predicted, np.array([1.09e4, 9.816e5, 3.069e6, 1.055385e8])
     )
 
 def test_bentout():
@@ -55,9 +55,6 @@ def test_bentout():
         range(100), starting_state=np.array([N - 100, 100, 0, 0])
     )
     predicted = np.around(Solutions[99], -2)
-    assert all(
-        predicted == np.array([18050200, 7308800, 9223400, 9267600])
+    assert np.allclose(
+        predicted, np.array([18050200, 7308800, 9223400, 9267600])
     )
-
-test_santos()
-test_bentout()

@@ -54,7 +54,7 @@ def test_SIRS():
         range(100), starting_state=np.array([N - 10, 10, 0])
     )
     predicted = np.around(Solution[99], -2)
-    assert all(predicted == np.array([400000, 200000, 400000]))
+    assert np.allclose(predicted, np.array([400000, 200000, 400000]))
 
 def test_SIHCR():
     """
@@ -99,4 +99,7 @@ def test_SIHCR():
     # get solutions
     Solution = SIHCR_Model.integrate(np.linspace(0, 20, 100))
     predicted = np.around(Solution[99], -2)
-    assert all(predicted == np.array([313300, 0, 0, 0, 686700]))
+    assert np.allclose(
+        predicted, 
+        np.array([2.115e5, 1.000e2, 1.000e2, 5.000e2, 7.877e5])
+    )

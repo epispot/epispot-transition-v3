@@ -39,7 +39,7 @@ def test_main():
     SIR_Model.compile()
 
     # get solutions
-    Solution = SIR_Model.integrate(np.linspace(0, 20, 100), delta=0.2)
+    Solution = SIR_Model.integrate(np.linspace(0, 20, 100))
     predicted = Solution[99]
     
     # save model
@@ -51,6 +51,6 @@ def test_main():
     loaded = epi.models.Model.load('tests/artifacts/SIR_Model.epi')
 
     # check model
-    re_Solution = loaded.integrate(np.linspace(0, 20, 100), delta=0.2)
+    re_Solution = loaded.integrate(np.linspace(0, 20, 100))
     re_predicted = re_Solution[99]
     assert np.allclose(predicted, re_predicted)
