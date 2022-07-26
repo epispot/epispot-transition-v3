@@ -80,7 +80,7 @@ python setup.py install
 
 Using epispot in a Python REPL to create the well-known SIR model (in less than three lines of code):
 
-![Quick demo GIF](https://epispot.github.io/epispot/assets/demo.gif)
+<img src="./assets/demo.png" style="width:50%;margin-left:25%;" alt="Demo showing how to create an SEIR model in less than 20 lines of code">
 
 ## Documentation
 
@@ -89,7 +89,7 @@ The official docs are located at <https://epispot.github.io/epispot/> but may be
 
 ## Examples
 
-The GitHub repository has a vast array of samples using epispot. You can start by checking out the [`explorables/`](./explorables/) directory. In it, you'll find many programs designed to help you get started with epispot and various hands-on examples.
+The GitHub repository has a vast array of samples using epispot. We are currently working on a tutorial, but for now the [documentation](https://epispot.github.io/epispot/) is the best place to start.
 
 ## Badges
 
