@@ -1,8 +1,6 @@
 """
-The `epispot.utils` module contains miscellaneous utilities for grouping
-and manipulating estimates stored in `epispot.estimates.data`.
-It can also be used to import estimates that epispot does not already
-have.
+The `epispot.utils` module contains miscellaneous utilities for grouping and manipulating estimates stored in `epispot.estimates.data`.
+It can also be used to import estimates that epispot does not already have.
 
 """
 
@@ -21,27 +19,33 @@ class Disease:
         description=None, 
     ):
         """
-        Group estimates by disease.
+        Group estimates by disease:
 
-        ## **Parameters**
+        ## Parameters
 
-        `id`: Unique scientific identifier for the disease
-              (in the case of COVID-19, e.g. `'SARS-CoV-2'`)
-        `papers`: List of `epispot.utils.Paper` objects for the disease
-        `name=None`: Common (display) name for the disease
-        `description=None`: Description of the disease
+        `id (str)`: Unique scientific identifier for the disease
+            (in the case of COVID-19, e.g. `'SARS-CoV-2'`)
 
-        ## **Example**
+        `papers (list[epispot.estimates.utils.Paper])`: List of `epispot.estimates.utils.Paper` objects for the disease
+        
+        `name=None (|str)`: Common (display) name for the disease
+
+        `description=None (|str)`: Description of the disease
+
+        ## Example
 
         ```python
-        >>> from epispot.estimates.utils import Disease
-        >>> covid = Disease(
-        ...     id='SARS-CoV-2',
-        ...     papers=[first_study, second_study, third_study],
-        ...     name='COVID-19',
-        ...     description='severe acute respiratory syndrome coronavirus 2',
-        ... )
+        from epispot.estimates.utils import Disease
+        covid = Disease(
+            id='SARS-CoV-2',
+            papers=[first_study, second_study, third_study],
+            name='COVID-19',
+            description='severe acute respiratory syndrome coronavirus 2',
+        )
         ```
+
+        Creates a `Disease` object for COVID-19, with relevant papers, 
+        name, and description.
 
         """
         self.id = id
@@ -70,17 +74,18 @@ class Paper:
         full=None, 
     ):
         """
-        Group parameter estimates by paper.
+        Group parameter estimates by paper:
 
-        ## **Parameters**
+        ## Parameters
 
-        `id`: Unique identifier tuple containing in-text citation info:
-              e.g. `('Ganyani', 'et al.', 2020)`
-              (replace `'et al.'` with a second author name if there 
-              are only two authors; omit if there is only one author)
-        `params`: List of `epispot.utils.Estimate` objects in the paper
-        `metadata=None`: Additional metadata about the paper as object
-                         with the following format:
+        `id (tuple(str, str, int|str))`: Unique identifier tuple containing in-text citation info:
+            e.g. `('Ganyani', 'et al.', 2020)`
+            (replace `'et al.'` with a second author name if there are only two authors; omit if there is only one author)
+        
+        `params (list[epispot.estimates.utils.Estimate])`: List of `epispot.estimates.utils.Estimate` objects in the paper
+        
+        `metadata=None (|dict)`: Additional metadata about the paper as object with the following format:
+
         ```python
         {
             'title': 'Estimating the generation interval ...',
@@ -89,15 +94,16 @@ class Paper:
             'journal': 'Eurosurveillance',
             'date': datetime(2020, 3, 1),
             'url': 'https://www.eurosurveillance.org/...',
-            'misc': {...}
+            'misc': {...}  # store other info here
         }
         ```
-        `in_text=None`: More detailed in-text citation (as string) if 
-                        necessary
-        `full=None`: Full citation (as string) if necessary
-                     Built-in estimates use APA style citations.
+        
+        `in_text=None (|str)`: More detailed in-text citation (as string) if necessary
+        
+        `full=None (|str)`: Full citation (as string) if necessary.
+            Built-in estimates use APA style citations.
 
-        ## **Example**
+        ## Example
 
         ```python
         >>> from epispot.estimates.utils import Paper
@@ -109,6 +115,8 @@ class Paper:
         'Ganyani et al. (2020)'
         ```
 
+        Create a paper that references the study by Ganyani et al. (2020).
+        
         """
         if not in_text:
             id_str = [str(i) for i in id]
@@ -146,26 +154,27 @@ class Estimate:
         description=None, 
     ):
         """
-        Load an estimate or distribution from the literature.
+        Load an estimate or distribution from the literature:
 
-        ## **Usage**
+        ## Function Parameters
 
-        `z=0`: Amount of random noise to add to the distribution.
-               *Magnitude of a uniform distribution*
-               *(added to final result)*
+        `z=0 (float)`: Amount of random noise to add to the distribution.
+            *Magnitude of a uniform distribution (added to final result)*
 
-        `*args`: Additional arguments to pass to the distribution.
         `**kwargs`: Additional keyword arguments to pass to the 
                     distribution.
 
-        ## **Parameters**
+        ## Parameters
+        
+        `id (str)`: Identifier for the estimate (e.g. `'R_0'`)
 
-        `id`: Identifier for the estimate (e.g. `'R_0'`)
-        `dist`: Constant value or callable function for the estimate
-        `name=None`: Name of the estimate
-        `description=None`: Description for the estimate
+        `dist (float | func(t: float)->float)`: Constant value or callable function for the estimate
 
-        ## **Example**
+        `name=None (|str)`: Name of the estimate
+
+        `description=None (|str)`: Description for the estimate
+
+        ## Example
 
         ```python
         >>> from epispot.estimates.utils import Estimate
@@ -178,6 +187,8 @@ class Estimate:
         >>> dist(0)
         0.5
         ```
+
+        Creates a logistic distribution for the value of R naught with respect to time.
 
         """
         self.id = id

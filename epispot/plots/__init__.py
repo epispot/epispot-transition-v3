@@ -1,12 +1,7 @@
 """
 This sub-package is responsible for plotting epispot models of the `epispot.models.Model` class.
-This is done independently of any other modules and thus all functions within this subpackage
-will require a reference to a `Model` class to plot.
+This is done independently of any other modules and thus all functions within this subpackage will require a reference to a `epispot.models.Model` class to plot.
 
-## Structure
-
-- native.py
-- web.py
 """
 
 

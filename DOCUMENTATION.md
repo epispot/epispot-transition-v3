@@ -4,27 +4,66 @@ The docstring standard for epispot
 
 ## Basic Rules
 
-Docstring format:
+Docstring format (all sections should only be used if necessary):
 
-``` python
-def function (parameters):
+```python
+def function(parameters):
     """
-    Overview
-    - [PARAM NAME]: [DESCRIPTION]
-      continued description
-      
-      list intro:
-        - a list item
-        - more list items
-     
-    - [PARAM NAME]: [DESCRIPTION]
-    ...
+    Overview/short description
+
+    ## Function Parameters
+
+    If the output of running this function is another function,
+    provide usage information here in the same format as the "parameters" section.
+
+    ## Parameters
+
+    `parameters (type)`: description
+    
+    `another_parameter=default (type)`: very long description that has punctuation;
+      thus, it is split across lines.
+      Continuing lines are indented.
+
+    ## Example
+
+    Show an example with code here:
+
+    ```python
+    print('hello world')
+    ```
+
+    Describe the above code example.
+
+    ## Usage
+
+    If additional notes about how to use this function are required, put them here.
+    Insert code snippets if necessary.
+
+    ## Error Handling
+
+    ### `ErrorType`
+
+    Describe the situations under which this function will raise an error and why the error is raised.
+
+    ### `AnotherErrorType`
+
+    Do the same thing here.
+
+    ## Additional Notes
+
+    Sometimes, additional (more technical) nootes are required;
+    put them here if that is the case.
+
+    ## Returns
+
+    Describe the return value of the function (`type`).
+
     """
     ...
 ```
 
 **Make sure indentation is accurate.** \
-**Use of ReST Directives such as:**
+**Use of ReST Directives are permitted, such as:**
 
 - **`..include::`**
 - **`..math::`**

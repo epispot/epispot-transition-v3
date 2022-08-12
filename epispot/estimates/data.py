@@ -1,14 +1,14 @@
 """
-The `epispot.data` module contains all of the estimates pulled from the
-literature regarding the parameters of specific diseases. They are 
-classified into a hierarchy of classes:
+The `epispot.estimates.data` module contains all of the estimates pulled from the literature regarding the parameters of specific diseases.
+They are classified into a hierarchy of classes:
 
 1. `epispot.estimates.utils.Disease` represents a specific disease (e.g. COVID-19)
-2. `epispot.estimates.utils.Paper` represents a specific study published in the 
-   literature regarding a specific disease (e.g. Ganyani, et al. 2020)
-3. `epispot.estimates.utils.Estimate` represents a specific parameter estimate
-    presented in a particular paper about a specific disease 
+2. `epispot.estimates.utils.Paper` represents a specific study published in the literature regarding a specific disease (e.g. Ganyani, et al. 2020)
+3. `epispot.estimates.utils.Estimate` represents a specific parameter estimate presented in a particular paper about a specific disease 
     (e.g. the recovery rate of COVID-19)
+
+.. note::
+    See `epispot.estimates.getters.query()` to get specific estimates from this file.
 
 """
 

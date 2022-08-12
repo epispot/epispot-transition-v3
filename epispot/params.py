@@ -1,14 +1,14 @@
 """
-The `epispot.params` module stores various parameter distributions and 
-estimations. These parameter distributions are divided into two classes: 
-those useful for general epidemiological analysis and those useful for 
-the analysis of a specific disease or variant of that disease.
+The `epispot.params` module stores various parameter distributions and estimations.
+These parameter distributions are divided into two classes:
+those useful for general epidemiological analysis and those useful for the analysis of a specific disease or variant of that disease.
 
-Direct estimate from the literature are also available in the 
-`epispot.estimates` sub-package, but the underlying structure is similar 
-to `epispot.params.Distribution`.
+Direct estimate from the literature are also available in the `epispot.estimates` sub-package,
+but the underlying structure is similar to `epispot.params.Distribution`.
 
 .. versionadded:: v3.0.0
+.. important::
+    Many features in this module are still in beta and are subject to changes.
 
 """
 
@@ -24,26 +24,29 @@ class Distribution:
         description=None, 
     ):
         """
-        Create a distribution to use in place of parameters.
+        Create a distribution to use in place of parameters:
 
-        ## **Usage**
+        ## Function Parameters
 
-        `z=0`: Amount of random noise to add to the distribution.
-               *Magnitude of a uniform distribution*
-               *(added to final result)*
+        `z=0 (float)`: Amount of random noise to add to the distribution.
+            *Magnitude of a uniform distribution (added to final result)*
 
         `**kwargs`: Additional keyword arguments to pass to the 
                     distribution.
 
-        ## **Parameters**
+        ## Parameters
 
-        `name`: Distribution name
-        `dist`: Function to generate the distribution
-        `description`: Description of the distribution
-        `citation`: Full citation of the distribution
-        `in_text`: In-text citation of the distribution
+        `name (str)`: Distribution name
 
-        ## **Example**
+        `dist=lambda c: c (func(t: float)->float)`: Function to generate the distribution
+
+        `description (str)`: Description of the distribution
+
+        `citation (str)`: Full citation of the distribution
+
+        `in_text (str)`: In-text citation of the distribution
+
+        ## Example
 
         ```python
         >>> from epispot.params import Distribution
@@ -55,6 +58,8 @@ class Distribution:
         >>> dist(0)
         0.5
         ```
+
+        Create a logistic distribution and evaluate it at timestep zero.
 
         """
         self.name = name
@@ -75,13 +80,15 @@ class Gamma(Distribution):
     """Models γ in the SIR model."""
     def __init__(self, type='rel-beta', **kwargs):
         """
-        Create a distribution for γ.
+        Create a distribution for γ:
 
-        ## **Parameters**
+        ## Parameters
 
         `type='rel_beta'`: Type of distribution to use.
-                Options:
-                    * `'rel-beta'`: Relative β distribution
+            
+        **Options**:
+
+        - `'rel-beta'`: Relative β distribution
 
         `**kwargs`: Additional keyword arguments to pass to the
                     distribution.
@@ -97,13 +104,13 @@ class Gamma(Distribution):
         """
         Distribution of γ relative to β.
 
-        ## **Usage**
+        ## Function Parameters
 
-        `R_0`: Reproduction number
+        `R_0 (float|func(t: float)->float)`: Reproduction number
 
-        `beta`: Transmission rate
+        `beta (float|func(t: float)->float)`: Transmission rate
 
-        ## **Example**
+        ## Example
 
         ```python
         >>> from epispot.params import Gamma
@@ -112,6 +119,9 @@ class Gamma(Distribution):
         0.5
         ```
 
+        Creates a gamma distribution for given R naught and beta values;
+        epispot automatically calculates the value for gamma.
+
         """
         if callable(beta): beta = beta(t)
         if callable(R_0): R_0 = R_0(t)
@@ -119,19 +129,20 @@ class Gamma(Distribution):
 
 
 class R_0(Distribution):
-    """Models R_0 in the SIR model."""
+    """Models R naught in the SIR model."""
     def __init__(self, type='rel-beta', **kwargs):
         """
-        Create a distribution for R_0.
+        Create a distribution for R naught:
 
-        ## **Parameters**
+        ## Parameters
 
-        `type='rel-beta'`: Type of distribution to use.
+        `type='rel-beta' (|'logistic'|'bell')`: Type of distribution to use.
 
-        Options:
-            * `'rel-beta'`: Relative β distribution
-            * `'logistic'`: Logistic distribution
-            * `'bell'`: Bell curve distribution
+        **Options**:
+
+        - `'rel-beta'`: Relative β distribution
+        - `'logistic'`: Logistic distribution
+        - `'bell'`: Bell curve distribution
 
         `**kwargs`: Additional keyword arguments to pass to the
                     distribution.
@@ -155,15 +166,15 @@ class R_0(Distribution):
     @staticmethod
     def rel_beta(t, gamma, beta):
         """
-        Distribution of R_0 relative to β.
+        Distribution of R naught relative to β.
 
-        ## **Usage**
+        ## Function Parameters
 
-        `gamma`: Total recovery rate
+        `gamma (float)`: Total recovery rate
 
-        `beta`: Transmission rate
+        `beta (float)`: Transmission rate
 
-        ## **Example**
+        ## Example
 
         ```python
         >>> from epispot.params import R_0
@@ -171,6 +182,8 @@ class R_0(Distribution):
         >>> R_0(0)
         0.5
         ```
+
+        Let epispot find the value of R naught given gamma and beta values.
 
         """
         if callable(beta): beta = beta(t)
@@ -180,25 +193,25 @@ class R_0(Distribution):
     @staticmethod
     def logistic(t, c=1, k=1, x_0=0, y_0=1):
         """
-        Reverse logistic distribution of R_0:
+        Reverse logistic distribution of R naught:
         <!--- $$ \\frac{c}{1 + e^{k(x-x_0)}} + y_0 $$ -->
 
-        ## **Usage**
+        ## Function Parameters
 
-        `c=1`: Maximum variation
+        `c=1 (float)`: Maximum variation
 
         ..note:: 
         
             With `y_0=0`, this gives the maximum *value* of 
             the distribution.
 
-        `k=1`: Rate of decline
+        `k=1 (float)`: Rate of decline
 
-        `x_0=0`: Center of the distribution
+        `x_0=0 (float)`: Center of the distribution
 
-        `y_0=1`: Minimum value
+        `y_0=1 (float)`: Minimum value
 
-        ## **Example**
+        ## Example
 
         ```python
         >>> from epispot.params import R_0
@@ -207,24 +220,26 @@ class R_0(Distribution):
         1.5
         ```
 
+        Model R naught using a logistic curve.
+
         """
         return c / (1 + np.exp(k * (t - x_0))) + y_0
 
     @staticmethod
     def bell(t, k=1/10, x_0=10, y_0=1):
         """
-        Bell curve distribution of R_0:   
+        Bell curve distribution of R naught:   
         <!--- $$ e^{-k(x-x_0)^2} $$ -->
 
-        ## **Usage**
+        ## Function Parameters
 
-        `k=1/10`: Variance (rate of decline)
+        `k=1/10 (float)`: Variance (rate of decline)
 
-        `x_0=0`: Center of the distribution
+        `x_0=0 (float)`: Center of the distribution
 
-        `y_0=1`: Minimum value
+        `y_0=1 (float)`: Minimum value
 
-        ## **Example**
+        ## Example
 
         ```python
         >>> from epispot.params import R_0
@@ -232,6 +247,8 @@ class R_0(Distribution):
         >>> R_0(0)
         1
         ```
+
+        Create a bell curve-like distribution for R naught and let epispot calculate the defined values over different timesteps.
 
         """
         return np.exp(-k * (t - x_0)**2) + y_0
@@ -241,16 +258,16 @@ class N(Distribution):
     """Models N (population) in the SIR model."""
     def __init__(self, type='constant', **kwargs):
         """
-        Create a distribution for N.
+        Create a distribution for N:
 
-        ## **Parameters**
+        ## Parameters
 
-        `type='constant'`: Type of distribution to use.
+        `type='constant' (|'linear')`: Type of distribution to use.
 
-        Options:
+        **Options**:
         
-            * `'constant'`: Constant population
-            * `'linear'`: Linear population increase/decline
+        - `'constant'`: Constant population
+        - `'linear'`: Linear population increase/decline
 
         `**kwargs`: Additional keyword arguments to pass to the
                     distribution.
@@ -273,11 +290,11 @@ class N(Distribution):
         """
         Constant-valued population.
 
-        ## **Usage**
+        ## Function Parameters
 
-        `N_0`: Initial population size
+        `N_0 (int)`: Initial population size
 
-        ## **Example**
+        ## Example
 
         ```python
         >>> from epispot.params import N
@@ -285,6 +302,8 @@ class N(Distribution):
         >>> population(0)
         10
         ```
+
+        Set a constant population of `10`.
 
         """
         return N_0
@@ -294,15 +313,15 @@ class N(Distribution):
         """
         Linear population trend.
 
-        ## **Usage**
+        ## Function Parameters
 
-        `N_0`: Initial population size
+        `N_0 (int)`: Initial population size
 
-        `birth`: Birth rate
+        `birth (float|func(t: float)->float)`: Birth rate
 
-        `death`: Death rate
+        `death (float|func(t: float)->float)`: Death rate
 
-        ## **Example**
+        ## Example
 
         ```python
         >>> from epispot.params import N
@@ -310,6 +329,8 @@ class N(Distribution):
         >>> population(0)
         10
         ```
+
+        Create a population structure with initial population of `10` and defined birth and death rates.
 
         ..note:: Callable arguments accepted for `birth` and `death`, 
                  but they must give *cumulative* values for estimates to

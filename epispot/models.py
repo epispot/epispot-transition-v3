@@ -17,10 +17,10 @@ class Model:
     """
     The base model class for 
     [compartmental models](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology). 
-    Compartmental models are models composed of various sub-models, 
-    known as "compartments." For example, the common SIR model is an 
-    example of a compartmental model with the Susceptible, Infected, 
-    and Removed compartments.
+    Compartmental models are models composed of various sub-models,
+    known as "compartments."
+    For example, the common SIR model is an example of a compartmental model with the Susceptible,
+    Infected, and Removed compartments.
 
     .. versionadded:: v3.0.0-alpha-2
 
@@ -28,47 +28,42 @@ class Model:
     def __init__(self, initial_population, comps=None, comp_map=None, 
                  matrix=None):
         """
-        Initialize the `Model` class; all optional parameters can be 
-        added through the `epispot.models.Model.add` method.
+        Initialize the `Model` class; all optional parameters can be added through the `epispot.models.Model.add` method.
 
-        ## **Parameters**
+        ## Parameters
 
-        `initial_population`: Population at time zero
+        `initial_population (int)`: Population at time zero
 
-        `comps=None`: List of compartment classes to create the model
+        `comps=None (|list[epispot.comps.Compartment])`: List of compartment classes to create the model
 
-        `comp_map=None`: Map of how all the compartments connect.
-                         The map should consist of a list of lists.
-                         Each sublist represents the connections of the 
-                         corresponding compartment in the `comps` list.
-                         This sublist should contain the indices of each 
-                         of the compartments in `comps` that it connects to.
-                         If the compartment does not connect to any other 
-                         compartments, leave the sublist blank.
+        `comp_map=None (|list[list[int]])`: Map of how all the compartments connect.
+            The map should consist of a list of lists.
+            Each sublist represents the connections of the corresponding compartment in the `comps` list.
+            This sublist should contain the indices of each of the compartments in `comps` that it connects to.
+            If the compartment does not connect to any other compartments,
+            leave the sublist blank.
         
-        `matrix=None`: Rate and probability matrix describing the 
-                       exchange rates between compartments. Like `map`,
-                       this is a list of lists. Unlike `map`, however,
-                       this matrix must not skip entries (i.e. no blank
-                       sublists). Each sublist should contain rate and 
-                       probability information in a tuple for every 
-                       compartment. If the information is not 
-                       necessary, use the tuple `(1, 1)` or `None` as a
-                       placeholder.
+        `matrix=None (|list[list[tuple(float|func(t: float)->float, float|func(t: float)->float)]])`:
+            Rate and probability matrix describing the exchange rates between compartments.
+            Like `map`, this is a list of lists.
+            Unlike `map`, however, this matrix must not skip entries
+            (i.e. no blank sublists).
+            Each sublist should contain rate and probability information
+            in a tuple for every compartment.
+            If the information is not necessary, use the tuple `(1, 1)`
+            as a placeholder.
 
-        ## **Example**
+        ## Example
 
         Let's say we have three compartments `A`, `B`, and `C`.
         These three compartments connect as shown below:
 
-        ```text
-        ┌───────────────────┐
-        │                   ▼
-        ┌───┐     ┌───┐     ┌───┐
-        │ A │ ──▶ │ C │ ──▶ │ B │
-        └───┘     └───┘     └───┘
-        ```
-
+            ┌─────────────────────┐
+            │                     ▼
+            ┌───┐     ┌───┐     ┌───┐
+            │ A │ ──> │ C │ ──> │ B │
+            └───┘     └───┘     └───┘
+        
         To create a compartmental model with these three classes, use:
 
         ```python
@@ -79,9 +74,9 @@ class Model:
             [1]         # C
         ],
         matrix = [
-            [None, (1/2, 1/3), (1/2, 1/3)],     # A[A, B, C] 
-            [None, None, None],                 # B[A, B, C]
-            [None, (1/2, 1/3), None]            # C[A, B, C]
+            [(1, 1), (1/2, 1/3), (1/2, 1/3)],     # A[A, B, C] 
+            [(1, 1), (1, 1), (1, 1)],                 # B[A, B, C]
+            [(1, 1), (1/2, 1/3), (1, 1)]            # C[A, B, C]
         ]
         ```
 
@@ -95,7 +90,7 @@ class Model:
         discussion 
         [here on GitHub](https://github.com/epispot/epispot/issues/73).
 
-        .. versionadded: v3.0.0-alpha-2
+        ..versionadded:: v3.0.0-alpha-2
 
         """
         self.initial_population = initial_population
@@ -110,23 +105,18 @@ class Model:
 
     def compile(self, custom=False):
         """
-        Run a series of checks of the model and initialize some 
-        class-wide variables.
+        Run a series of checks of the model and initialize some class-wide variables.
 
-        ## **Parameters**
+        ## Parameters
 
-        `custom=False`: Flag indicating if the model is using custom
-                        compartments. If this is `False` (the default), 
-                        all compartment compatibility checks will have 
-                        to pass or an error will be raised. If this is 
-                        `True`, those checks are bypassed since the 
-                        model cannot check for custom compartments.
+        `custom=False (bool)`: Flag indicating if the model is using custom compartments.
+            If this is `False` (the default), all compartment compatibility checks will have to pass or an error will be raised.
+            If this is `True`, those checks are bypassed since the model cannot check for custom compartments.
 
-        ## **Additional Notes**
+        ## Additional Notes
 
-        Adding, removing, or modifying compartments after this step 
-        will automatically de-compile the model, requiring it to be 
-        compiled again after changes have been made.
+        Adding, removing, or modifying compartments after this step will automatically de-compile the model,
+        requiring it to be compiled again after changes have been made.
 
         .. important:: 
            Only run after all the compartments have been
@@ -156,23 +146,19 @@ class Model:
 
     def diff(self, time, system):
         """
-        Differentiate `epispot.models.Model`. Used by 
-        `epispot.models.Model.integrate` for evaluating model 
-        predictions.
+        Differentiate `epispot.models.Model`; used by `epispot.models.Model.integrate` for evaluating model predictions.
 
-        ## **Parameters**
+        ## Parameters
 
-        `time`: Time to take the derivative at. This is important for 
-                some time-dependent variables like compartment 
-                parameters.
+        `time (float)`: Time to take the derivative at.
+            This is important for some time-dependent variables like compartment parameters.
 
-        `system`: System of state values (e.g `[973, 12, 15]`). This is 
-                propagated to each of the individual compartments in 
-                the model.
+        `system (list[float])`: System of state values (e.g `[973, 12, 15]`).
+            This is propagated to each of the individual compartments in the model.
 
-        ## **Return**
+        ## Returns
 
-        List of corresponding compartment derivatives.
+        List of corresponding compartment derivatives (`list[float]`)
         
         """
         if not self.compiled:  # pragma: no cover
@@ -203,40 +189,33 @@ class Model:
 
     def integrate(self, timesteps, starting_state=None):
         """
-        Integrate the model using `epispot.models.Model.diff` to 
-        arrive at future predictions using 
+        Integrate the model using `epispot.models.Model.diff` to arrive at future predictions using
         [Euler's Method](https://en.wikipedia.org/wiki/Euler_method).
-        By default, the step size (Δ) is set to exactly 1 day, as this 
-        is usually the period for which epidemiological parameters are 
-        estimated for. However, this can be changed if necessary.
+        By default, the step size (Δ) is set to exactly 1 day, as this is usually the period for which epidemiological parameters are estimated for.
+        However, this can be changed if necessary.
 
-        ## **Parameters**
+        ## Parameters
 
-        `timesteps`: range of evenly-spaced times starting at the 
-                     epidemic start time and ending at the time of 
-                     prediction.
+        `timesteps (range)`: range of evenly-spaced times starting at the epidemic start time and ending at the time of prediction.
         
-        `starting_state=None`: List of initial values for each 
-                               compartment. This is used as the initial 
-                               vector for the integration process.
-                               If no `starting_state` is provided, it 
-                               will default to the having only 1 person
-                               in the next non-Susceptible compartment.
+        `starting_state=None (|list[int])`: List of initial values for each compartment.
+            This is used as the initial vector for the integration process.
+            If no `starting_state` is provided, it will default to the having only 1 person in the next non-Susceptible compartment.
 
-        `delta=1`: Δ: the step size for the integration process. Smaller
-                   values will result in more accurate predictions, but
-                   will be more costly.
-        
-        ## **Return**
+        `delta=1 (|float)`: Δ, the step size for the integration process.
+            Smaller values will result in more accurate predictions,
+            but will be more costly.
 
-        A list of lists. Each sublist is a vector representing the 
-        value of each compartment at that specific time. The sublists
-        range according to the `timesteps` parameter.
+        ## Returns
 
-        ## **Example**
+        A list of lists; each sublist is a vector representing the value of each compartment at that specific time.
+        The sublists range according to the `timesteps` parameter.
+        (`list[list[float]]`)
+
+        ## Example
 
         For example, the following would be an expected return type for 
-        an SIR model with a population of `100`.
+        an SIR model with a population of `100`:
 
         ```python
         [
@@ -281,31 +260,28 @@ class Model:
 
     def add(self, comp, comp_map, matrix):
         """
-        Add a compartment to the model. This can also be done by 
-        initializing the `epispot.models.Model` class beforehand.
+        Add a compartment to the model.
+        This can also be done by initializing the `epispot.models.Model` class beforehand.
 
-        ## **Parameters**
+        ## Parameters
 
-        `comp`: Compartment class (e.g. `Susceptible()` or `Infected()`)
+        `comp (epispot.comps.Compartment)`: Compartment class (e.g. `epispot.comps.Susceptible` or `epispot.comps.Infected`)
 
-        `comp_map`: Slice of the larger `map` specified in 
-                    `epispot.models.Model`. This should simply include the 
-                    compartment connections for this specific compartment.
+        `comp_map (list[int])`: Slice of the larger `map` specified in `epispot.models.Model`.
+            This should simply include the compartment connections for this specific compartment.
 
-        `matrix`: Slice of the larger `matrix` specified in 
+        `matrix (list[tuple(float|func(t: float)->float, float|func(t: float)->float)])`: Slice of the larger `matrix` specified in 
                   `epispot.models.Model`. As with `map`, this should 
                   only include the rates and probabilities for this
                   compartment's connections.
 
-        ## **Error Handling**
+        ## Error Handling
 
-        Initializing some parameters in `epispot.models.Model` without
-        initializing all of them will raise a `ValueError`.
+        Initializing some parameters in `epispot.models.Model` without initializing all of them will raise a `ValueError`.
 
-        ## **Additional Notes**
+        ## Additional Notes
 
-        See the documentation for `epispot.models.Model` for more help
-        and examples.
+        See the documentation for `epispot.models.Model` for more help and examples.
 
         """
         if self.compiled:
@@ -335,7 +311,7 @@ class Model:
 
         ## Parameters
 
-        `names`: A list of names corresponding to `comps`
+        `names (list[str])`: A list of names corresponding to `comps`
 
         """
         self.names = names
@@ -344,12 +320,13 @@ class Model:
 
     def save(self, filename):
         """
-        Save the model to a file. This can be used to load the model 
-        later. Standard file ending is `.epi`.
+        Save the model to a file.
+        This can be used to load the model later.
+        Standard file ending is `.epi`.
 
         ## Parameters
 
-        `filename`: Name of the file to save the model to
+        `filename (str)`: Name of the file to save the model to
 
         ## Error Handling
 
@@ -371,14 +348,14 @@ class Model:
 
         ## Parameters
 
-        `filename`: Name of the file to load the model from
+        `filename (str)`: Name of the file to load the model from
 
         ## Security
 
-        **Warning**:
-        Be careful when loading a model from a file. Untrusted sources
-        could potentially embed malicious code into various parts of the
-        model which can lead to arbitrary code execution.
+        ..warning:: 
+            Be careful when loading a model from a file. Untrusted sources
+            could potentially embed malicious code into various parts of the
+            model which can lead to arbitrary code execution.
 
         ## Error Handling
 

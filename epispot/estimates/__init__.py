@@ -1,13 +1,5 @@
 """
-This sub-package contains various estimates from the literature to be 
-used in conjunction with epispot's models.
-
-## Structure
-
-- getters.py
-- data.py
-- utils.py
-- storage.py
+This sub-package contains various estimates from the literature to be used in conjunction with epispot's models.
 
 .. versionadded:: v3.0.0
 

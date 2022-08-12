@@ -1,15 +1,13 @@
 """
 The `web` module contains various web-based plotting mechanisms.
 These plotting mechanisms use `plotly` to generate in-browser plots of epispot models.
-`plotly` is a required dependency for these modules. If you haven't already, install it with:
+`plotly` is a required dependency for these modules.
+If you haven't already, install it with:
+
 ```shell
 pip install plotly
 ```
 
-## Structure:
-
-- model()
-- stacked()
 """
 
 from . import px
@@ -20,24 +18,39 @@ def model(Model, time_frame, title='Compartment Populations over Time',
     """
     Plots the results of one model using `plotly`.
     The results are displayed in-browser via a `localhost`.
-    There are various ways to customize the generated plots by modifying
-    the time frame or compartments displayed.
+    There are various ways to customize the generated plots by modifying the time frame or compartments displayed.
 
-    - Model: An `epispot.models.Model` object
-    - time_frame: A `range()` describing the time period to plot;
-                  use `timesteps=` keyword argument to use `np.linspace`
-                  as the `time_frame` is simply for the x-axis
-    - title: (`='Compartment Populations over Time`) The title of the plot
-    - show_susceptible: (`=False`) Boolean value describing whether or not to plot the Susceptible compartment.\
-                                   **This assumes that the Susceptible compartment is the first in `Model`**\
-                                   Note:\
-                                   > This can potentially result in less visibility for other compartments
-                                   > since usually the Susceptible compartment comprises of many, many
-                                   > more individuals than the other compartments combined.
-    - log: (`=False`) Boolean value indicating whether or not to use a logarithmic scale when plotting `Model`
-    - colors: (default:plotly default) A list of CSS-valid colors to cycle through in the plot
-    - `**kwargs**`: Keyword arguments to pass into `Model.integrate`
-    - return: `plotly` figure (display in-browser with `.show()`)
+    ## Parameters
+
+    `Model (epispot.models.Model)`: A `epispot.models.Model` object
+    
+    `time_frame (range)`: A `range()` describing the time period to plot;
+        use `timesteps=` keyword argument to use `np.linspace` as the `time_frame` is simply for the x-axis
+    
+    `title='Compartment Populations over Time' (str)`: The title of the plot
+
+    `show_susceptible=False (bool)`: Boolean value describing whether or not to plot the Susceptible compartment.
+    
+    ..important::
+        This assumes that the Susceptible compartment is the first in `Model`
+        
+    ..note::
+        This can potentially result in less visibility for other compartments
+        since usually the Susceptible compartment comprises of many, many
+        more individuals than the other compartments combined.
+
+    `log=False (bool)`: Boolean value indicating whether or not to use a logarithmic scale when plotting `Model`
+    
+    `colors=None (list[str])`: A list of CSS-valid colors to cycle through in the plot;
+        defaults to Plotly's theme colors.
+
+    `**kwargs**`: Keyword arguments to pass into `epispot.models.Model.integrate()`
+
+    ## Returns
+
+    `plotly` figure (display in-browser with `.show()`) with the required data
+    (`plotly.graph_objects.Figure`)
+
     """
 
     DataFrame = {}
@@ -93,24 +106,39 @@ def stacked(Model, time_frame, title='Compartment Populations over Time',
     """
     Plots the results of one model using `plotly` as a stacked area chart.
     The results are displayed in-browser via a `localhost`.
-    There are various ways to customize the generated plots by modifying
-    the time frame or compartments displayed.
+    There are various ways to customize the generated plots by modifying the time frame or compartments displayed.
 
-    - Model: An `epispot.models.Model` object
-    - time_frame: A `range()` describing the time period to plot;
-                  use `timesteps=` keyword argument to use `np.linspace`
-                  as the `time_frame` is simply for the x-axis
-    - title: (`='Compartment Populations over Time`) The title of the plot
-    - show_susceptible: (`=False`) Boolean value describing whether or not to plot the Susceptible compartment.\
-                                   **This assumes that the Susceptible compartment is the first in `Model`**\
-                                   Note:\
-                                   > This can potentially result in less visibility for other compartments
-                                   > since usually the Susceptible compartment comprises of many, many
-                                   > more individuals than the other compartments combined.
-    - log: (`=False`) Boolean value indicating whether or not to use a logarithmic scale when plotting `Model`
-    - colors: (default:plotly default) A list of CSS-valid colors to cycle through in the plot
-    - `**kwargs**`: Keyword arguments to pass into `Model.integrate`
-    - return: `plotly` figure (display in-browser with `.show()`)
+    ## Parameters
+
+    `Model (epispot.models.Model)`: A `epispot.models.Model` object
+    
+    `time_frame (range)`: A `range()` describing the time period to plot;
+        use `timesteps=` keyword argument to use `np.linspace` as the `time_frame` is simply for the x-axis
+    
+    `title='Compartment Populations over Time' (str)`: The title of the plot
+
+    `show_susceptible=False (bool)`: Boolean value describing whether or not to plot the Susceptible compartment.
+    
+    ..important::
+        This assumes that the Susceptible compartment is the first in `Model`
+        
+    ..note::
+        This can potentially result in less visibility for other compartments
+        since usually the Susceptible compartment comprises of many, many
+        more individuals than the other compartments combined.
+
+    `log=False (bool)`: Boolean value indicating whether or not to use a logarithmic scale when plotting `Model`
+    
+    `colors=None (list[str])`: A list of CSS-valid colors to cycle through in the plot;
+        defaults to Plotly's theme colors.
+
+    `**kwargs**`: Keyword arguments to pass into `epispot.models.Model.integrate()`
+
+    ## Returns
+
+    `plotly` figure (display in-browser with `.show()`) with the required data
+    (`plotly.graph_objects.Figure`)
+
     """
 
     DataFrame = {}

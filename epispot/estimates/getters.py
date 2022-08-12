@@ -1,7 +1,7 @@
 """
-The `epispot.getters` module contains various scripts for listing, 
-querying, and loading data from the literature. Alternatively, the data
-can be loaded directly from `epispot.estimates.data`.
+The `epispot.getters` module contains various scripts for listing,
+querying, and loading data from the literature.
+Alternatively, the data can be loaded directly from `epispot.estimates.data`.
 
 """
 
@@ -14,23 +14,32 @@ def query(match):
     """
     Query the literature for estimates.
     
-    ## **Parameters**
+    ## Parameters
     
-    `match`: Query as tuple of IDs or slash-separated string.
-             Use IDs for all queries except papers 
-             (use in-text citations).
-             Ex: `('SARS-CoV-2', 'Ganyani et al. 2020')` or
-             `'SARS-CoV-2/Lauer et al. 2020/gamma'`
+    `match (tuple(str,...)|str)`: Query as tuple of IDs or slash-separated string.
+        Use IDs for all queries except papers (use in-text citations).
+        See the examples section for more information.
     
-    ## **Example**
-    
+    ## Example
+
     ```python
-    >>> from epispot.getters import query
-    >>> query('SARS-CoV-2')
-    <epispot.utils.Disease object>
+    query(('SARS-CoV-2', 'Ganyani et al. 2020'))
+    query('SARS-CoV-2/Lauer et al. 2020/gamma')
     ```
 
-    ## **Error Handling**
+    ## Usage
+    
+    ```python
+    >>> from epispot.estimates.getters import query
+    >>> query('SARS-CoV-2')
+    SARS-CoV-2
+    ```
+
+    A simple query for the SARS-CoV-2 disease object.
+
+    ## Error Handling
+
+    ### `ValueError`
 
     If the query returns no results, a `ValueError` will be raised.
     No errors are raised related to query format, however.
