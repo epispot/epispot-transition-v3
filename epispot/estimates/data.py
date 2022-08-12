@@ -15,7 +15,6 @@ They are classified into a hierarchy of classes:
 # imports
 from . import dt, utils
 
-
 # COVID-19
 
 # Estimates
