@@ -74,18 +74,20 @@ def model(Model, time_frame, title='Compartment Populations over Time',
         colors = px.colors.qualitative.Alphabet
 
     # plotting
-    Figure = px.line(DataFrame,
-                    labels={
-                        'index': 'Time (in days)',
-                        'value': 'Compartment Population'
-                    },
-                    title=title,
-                    color_discrete_sequence=colors,
-                    template='plotly_white',
-                    log_y=log)
+    Figure = px.line(
+        DataFrame,
+        labels={
+            'index': 'Time (in days)',
+            'value': 'Compartment Population'
+        },
+        title=title,
+        color_discrete_sequence=colors,
+        template='plotly_white',
+        log_y=log
+    )
 
     Figure.update_layout(
-        font = dict(
+        font=dict(
             family="Times New Roman, Serif",
             size=24,
             color="Black"

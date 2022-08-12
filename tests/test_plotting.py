@@ -31,7 +31,7 @@ import epispot as epi
 N = 1e6
 start_1 = np.array([N - 10, 10, 0, 0])
 start_2 = np.array([N - 50, 25, 25, 0])
-SEIR_Model = epi.pre.SEIR(2.5, 1/2, N, 1/2)
+SEIR_Model = epi.pre.SEIR(2.5, 1 / 2, N, 1 / 2)
 
 
 # TESTS
@@ -69,12 +69,16 @@ def test_full_stacked():
 
 def test_plain_native():
     """Native plotting test (minimal parameters)"""
-    Figure = epi.plots.native.model(SEIR_Model, range(120), latex=False)  # `latex=False` flag speeds up testing
+    Figure = epi.plots.native.model(
+        SEIR_Model,
+        range(120),
+        latex=False
+    )  # `latex=False` flag speeds up testing
     return Figure
 
 def test_full_native():
     """Native plotting test (all parameters)"""
-    #`latex=True` enabled by default
+    # `latex=True` enabled by default
     Figure = epi.plots.native.model(SEIR_Model, range(120),
                                     title='SEIR Model Plot',
                                     starting_state=start_2,
@@ -85,12 +89,16 @@ def test_full_native():
 
 def test_plain_native_stack():
     """Native plotting test for stacked area charts (minimal parameters)"""
-    Figure = epi.plots.native.stacked(SEIR_Model, range(120), latex=False)  # `latex=False` flag speeds up testing
+    Figure = epi.plots.native.stacked(
+        SEIR_Model,
+        range(120),
+        latex=False
+    )  # `latex=False` flag speeds up testing
     return Figure
 
 def test_full_native_stack():
     """Native plotting test for stacked area charts (all parameters)"""
-    #`latex=True` enabled by default
+    # `latex=True` enabled by default
     Figure = epi.plots.native.stacked(SEIR_Model, range(120),
                                       title='SEIR Model Plot',
                                       starting_state=start_2,

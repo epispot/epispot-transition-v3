@@ -21,8 +21,8 @@ class Model:
     Infected, and Removed compartments.
 
     .. versionadded:: v3.0.0-alpha-2
-
     """
+
     def __init__(self, initial_population, comps=None, comp_map=None,
                  matrix=None):
         """
@@ -168,13 +168,11 @@ class Model:
         derivative = np.zeros((len(self.compartments), ))
         for num, compartment in enumerate(self.compartments):
             if num in self.aggregated['Susceptible']:
-                delta = compartment.diff(time,
-                                         system,
-                                         num,
-                                         self.map[num],
-                                         self.matrix[num],
-                                         infecteds=
-                                         self.aggregated['Infected'])
+                delta = compartment.diff(
+                    time, system, num,
+                    self.map[num], self.matrix[num],
+                    infecteds=self.aggregated['Infected']
+                )
             else:
                 delta = compartment.diff(time,
                                          system,
@@ -291,7 +289,7 @@ class Model:
             self.map = [comp_map]
             self.matrix = [matrix]
         elif self.compartments is not None and self.map is not None and \
-             self.matrix is not None:
+            self.matrix is not None:
             self.compartments.append(comp)
             self.names.append(comp.name)
             self.map.append(comp_map)

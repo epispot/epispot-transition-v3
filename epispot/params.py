@@ -17,6 +17,7 @@ from . import np
 
 class Distribution:
     """The base class for all parameter distributions."""
+
     def __init__(
         self,
         name=None,
@@ -68,16 +69,20 @@ class Distribution:
 
     def __repr__(self):
         return f'<{self.name} distribution>'
+
     def __str__(self):
         return self.name
+
     def __about__(self):
         return self.description
+
     def __call__(self, t, z=0, **kwargs):
         return self.dist(t, **kwargs) + z * np.random.standard_normal()
 
 
 class Gamma(Distribution):
     """Models γ in the SIR model."""
+
     def __init__(self, type='rel-beta', **kwargs):
         """
         Create a distribution for γ:
@@ -95,9 +100,9 @@ class Gamma(Distribution):
 
         """
         if type == 'rel-beta':
-                self.name = 'Relative-β Distribution'
-                self.description = 'Distribution of γ relative to β'
-                self.dist = lambda t: Gamma.rel_beta(t, **kwargs)
+            self.name = 'Relative-β Distribution'
+            self.description = 'Distribution of γ relative to β'
+            self.dist = lambda t: Gamma.rel_beta(t, **kwargs)
 
     @staticmethod
     def rel_beta(t, R_0, beta):
@@ -130,6 +135,7 @@ class Gamma(Distribution):
 
 class R_0(Distribution):
     """Models R naught in the SIR model."""
+
     def __init__(self, type='rel-beta', **kwargs):
         """
         Create a distribution for R naught:
@@ -149,19 +155,19 @@ class R_0(Distribution):
 
         """
         if type == 'rel-beta':
-                self.name = 'Relative-β Distribution'
-                self.description = 'Distribution of γ relative to β'
-                self.dist = lambda t: R_0.rel_beta(t, **kwargs)
+            self.name = 'Relative-β Distribution'
+            self.description = 'Distribution of γ relative to β'
+            self.dist = lambda t: R_0.rel_beta(t, **kwargs)
         elif type == 'logistic':
-                self.name = 'Reverse Logistic Distribution'
-                self.description = 'A reverse logistic distribution ' \
-                                   '(starts high and then drops)'
-                self.dist = lambda t: R_0.logistic(t, **kwargs)
+            self.name = 'Reverse Logistic Distribution'
+            self.description = 'A reverse logistic distribution ' \
+                               '(starts high and then drops)'
+            self.dist = lambda t: R_0.logistic(t, **kwargs)
         elif type == 'bell':
-                self.name = 'Bell Curve'
-                self.description = 'Follows the equation of a normal ' \
-                                   'distribution (peaks near the center)'
-                self.dist = lambda t: R_0.bell(t, **kwargs)
+            self.name = 'Bell Curve'
+            self.description = 'Follows the equation of a normal ' \
+                               'distribution (peaks near the center)'
+            self.dist = lambda t: R_0.bell(t, **kwargs)
 
     @staticmethod
     def rel_beta(t, gamma, beta):
@@ -226,7 +232,7 @@ class R_0(Distribution):
         return c / (1 + np.exp(k * (t - x_0))) + y_0
 
     @staticmethod
-    def bell(t, k=1/10, x_0=10, y_0=1):
+    def bell(t, k=1 / 10, x_0=10, y_0=1):
         """
         Bell curve distribution of R naught:
         <!--- $$ e^{-k(x-x_0)^2} $$ -->
@@ -256,6 +262,7 @@ class R_0(Distribution):
 
 class N(Distribution):
     """Models N (population) in the SIR model."""
+
     def __init__(self, type='constant', **kwargs):
         """
         Create a distribution for N:
@@ -274,16 +281,16 @@ class N(Distribution):
 
         """
         if type == 'constant':
-                self.name = 'Constant-valued Population'
-                self.description = 'Constant population size, where ' \
-                                   'death and birth rates are identical'
-                self.dist = lambda t: N.constant(t, **kwargs)
+            self.name = 'Constant-valued Population'
+            self.description = 'Constant population size, where ' \
+                               'death and birth rates are identical'
+            self.dist = lambda t: N.constant(t, **kwargs)
         elif type == 'linear':
-                self.name = 'Linear Population Trend'
-                self.description = 'Linear population trend, ' \
-                                   'accounting for birth and death ' \
-                                   'rates'
-                self.dist = lambda t: N.linear(t, **kwargs)
+            self.name = 'Linear Population Trend'
+            self.description = 'Linear population trend, ' \
+                               'accounting for birth and death ' \
+                               'rates'
+            self.dist = lambda t: N.linear(t, **kwargs)
 
     @staticmethod
     def constant(t, N_0):

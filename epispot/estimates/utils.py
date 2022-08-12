@@ -10,6 +10,7 @@ from . import np, storage
 
 class Disease:
     """High-level grouping of estimates by disease."""
+
     def __init__(
         self,
         id,
@@ -56,14 +57,17 @@ class Disease:
 
     def __repr__(self):
         return self.id
+
     def __str__(self):
         return self.name
+
     def __about__(self):
         return self.description
 
 
 class Paper:
     """High-level grouping of parameter estimates by paper."""
+
     def __init__(
         self,
         id,
@@ -132,19 +136,23 @@ class Paper:
 
     def __repr__(self):
         return self.in_text
+
     def __str__(self):
         if self.metadata: return self.metadata['title']
         return self.in_text
+
     def __about__(self):
         if self.metadata: return self.metadata['description']
         if self.full: return self.full
         return self.in_text
+
     def __cite__(self):
         return self.in_text
 
 
 class Estimate:
     """The base class for all estimates from the literature."""
+
     def __init__(
         self,
         id,
@@ -197,9 +205,12 @@ class Estimate:
 
     def __repr__(self):
         return self.id
+
     def __str__(self):
         return self.id
+
     def __about__(self):
         return self.name + ': ' + self.description
+
     def __call__(self, t, z=0, **kwargs):
         return self.dist(t, **kwargs) + z * np.random.standard_normal()

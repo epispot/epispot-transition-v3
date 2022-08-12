@@ -16,8 +16,8 @@ class Compartment:
     This class represents a compartment, used in compartmental models.
     The base compartmental model that all compartments can be used for is the `epispot.models.Model` class.
     Additionally, this class can be used with `super().__init__()` to create a custom compartment.
-
     """
+
     def __init__(self, name, config=None):
         """
         Initialize the compartment; invoke with:
@@ -200,8 +200,8 @@ class Susceptible(Compartment):
     ## Structure
 
     `epispot.comps.Recovered` → `epispot.comps.Susceptible` → `epispot.comps.Exposed`, `epispot.comps.Infected`
-
     """
+
     def __init__(self, R_0, gamma, N):
         """
         Initialize the Susceptible class:
@@ -315,8 +315,8 @@ class Infected(Compartment):
     ## Structure
 
     `epispot.comps.Susceptible`, `epispot.comps.Exposed` → `epispot.comps.Infected` → `epispot.comps.Recovered`, `epispot.comps.Hospitalized`, `epispot.comps.Critical`, `epispot.comps.Dead`, `epispot.comps.Removed`
-
     """
+
     def __init__(self):
         """Initialize the Infected class"""
         config = {
@@ -341,8 +341,8 @@ class Removed(Compartment):
     ##
 
     Any `epispot.comps.Compartment` → `epispot.comps.Removed` → `epispot.comps.Susceptible`
-
     """
+
     def __init__(self):
         """Initialize the Removed class"""
         super().__init__('Removed')
@@ -363,8 +363,8 @@ class Recovered(Compartment):
     ## Structure
 
     `epispot.comps.Infected`, `epispot.comps.Hospitalized`, `epispot.comps.Critical` → `epispot.comps.Recovered` → `epispot.comps.Susceptible`
-
     """
+
     def __init__(self):
         """Initialize the Recovered class"""
         super().__init__('Recovered')
@@ -384,8 +384,8 @@ class Exposed(Compartment):
     efforts.
 
     `epispot.comps.Susceptible` → `epispot.comps.Exposed` → `epispot.comps.Infected`
-
     """
+
     def __init__(self):
         """Initialize the Exposed class"""
         super().__init__('Exposed')
@@ -430,8 +430,8 @@ class Hospitalized(Compartment):
     ## Structure
 
     `epispot.comps.Infected` → `epispot.comps.Hospitalized` → `epispot.comps.Critical`, `epispot.comps.Recovered`, `epispot.comps.Removed`, `epispot.comps.Dead`
-
     """
+
     def __init__(self, max_cap=None, index=None):
         """
         Initialize the Critical class:
@@ -457,10 +457,10 @@ class Hospitalized(Compartment):
         self.triage_index = index
 
         if ((max_cap, index) != (None, None)) and \
-        (max_cap is None or index is None):  # pragma: no cover
+            (max_cap is None or index is None):  # pragma: no cover
             raise ValueError('You must specify both a maximum '
-                                'capacity and an index for triage '
-                                'support.')
+                             'capacity and an index for triage '
+                             'support.')
 
     def _check(self, minimap, compartments):
         """Check wrapper for the Hospitalized compartment"""
@@ -524,8 +524,8 @@ class Hospitalized(Compartment):
 
         if (self.maximum_capacity is not None) and \
            (system[pos] > self.maximum_capacity):
-                output[pos] = self.maximum_capacity - system[pos]
-                output[self.triage_index] = -output[pos]
+            output[pos] = self.maximum_capacity - system[pos]
+            output[self.triage_index] = -output[pos]
 
         return output
 
@@ -540,8 +540,8 @@ class Critical(Compartment):
     ## Structure
 
     `epispot.comps.Hospitalized`, `epispot.comps.Infected` → `epispot.comps.Critical` → `epispot.comps.Recovered`, `epispot.comps.Removed`, `epispot.comps.Dead`
-
     """
+
     def __init__(self, max_cap=None, index=None):
         """
         Initialize the Critical class:
@@ -568,9 +568,9 @@ class Critical(Compartment):
 
         if ((max_cap, index) != (None, None)) and \
            (max_cap is None or index is None):  # pragma: no cover
-                raise ValueError('You must specify both a maximum '
-                                'capacity and an index for triage '
-                                'support.')
+            raise ValueError('You must specify both a maximum '
+                             'capacity and an index for triage '
+                             'support.')
 
     def _check(self, minimap, compartments):
         """Check wrapper for the Hospitalized compartment"""
@@ -605,7 +605,7 @@ class Critical(Compartment):
 
         if (self.maximum_capacity is not None) and \
            (system[pos] > self.maximum_capacity):
-                output[pos] = self.maximum_capacity - system[pos]
-                output[self.triage_index] = -output[pos]
+            output[pos] = self.maximum_capacity - system[pos]
+            output[self.triage_index] = -output[pos]
 
         return output

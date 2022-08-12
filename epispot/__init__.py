@@ -75,7 +75,9 @@ def sanity_check():
     import sys
     if (sys.version_info[0] < 3) or \
        (sys.version_info[0] == 3 and sys.version_info[1] < 7):
-        raise RuntimeError('epispot requires Python 3.7 or later')  # pragma: no cover
+        raise RuntimeError(
+            'epispot requires Python 3.7 or later'
+        )  # pragma: no cover
     _check_versions()
 
     # check for updates

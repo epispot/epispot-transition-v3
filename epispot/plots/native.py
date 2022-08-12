@@ -85,7 +85,11 @@ def model(Model, time_frame, title='Compartment Populations over Time',
     plt.figure(figsize=(9, 5))
     for compartment, _ in enumerate(Model.compartments):
         if (not show_susceptible and compartment != 0) or show_susceptible:
-            plt.plot(time_frame, DataFrame[Model.names[compartment]], label=names[compartment])
+            plt.plot(
+                time_frame,
+                DataFrame[Model.names[compartment]],
+                label=names[compartment]
+            )
 
     if log:
         plt.yscale('log')
@@ -96,8 +100,8 @@ def model(Model, time_frame, title='Compartment Populations over Time',
 
 
 def stacked(Model, time_frame, title='Compartment Populations over Time',
-          compartments=None, show_susceptible=False, log=False,
-          latex=True, **kwargs):
+            compartments=None, show_susceptible=False, log=False,
+            latex=True, **kwargs):
     """
     Plots the results of one model using `matplotlib`.
     The results are displayed natively via a `matplotlib` window as a stacked area chart.
@@ -172,7 +176,12 @@ def stacked(Model, time_frame, title='Compartment Populations over Time',
     if log:
         plt.yscale('log')
     plt.title(title)
-    plt.legend(loc="lower center", bbox_to_anchor=(0.5, -0.2), borderaxespad=0, ncol=2)
+    plt.legend(
+        loc="lower center",
+        bbox_to_anchor=(0.5, -0.2),
+        borderaxespad=0,
+        ncol=2
+    )
     plt.tight_layout()
 
     return plt
