@@ -288,8 +288,9 @@ class Model:
             self.names = [comp.name]
             self.map = [comp_map]
             self.matrix = [matrix]
-        elif self.compartments is not None and self.map is not None and \
-            self.matrix is not None:
+        elif self.compartments is not None \
+            and self.map is not None \
+            and self.matrix is not None:
             self.compartments.append(comp)
             self.names.append(comp.name)
             self.map.append(comp_map)

@@ -408,8 +408,8 @@ class Dead(Compartment):
        As is convention with compartmental models, we assume that the dead compartment does not significantly alter the population structure that we're analyzing.
        In future versions of epispot, we do plan to add support for factoring in the deceased population into predictions,
        but at this time that is not a primary concern.
-
     """
+
     def __init__(self):
         """Initialize the Dead class"""
         super().__init__('Dead')
@@ -456,8 +456,8 @@ class Hospitalized(Compartment):
         self.maximum_capacity = max_cap
         self.triage_index = index
 
-        if ((max_cap, index) != (None, None)) and \
-            (max_cap is None or index is None):  # pragma: no cover
+        if ((max_cap, index) != (None, None)) \
+            and (max_cap is None or index is None):  # pragma: no cover
             raise ValueError('You must specify both a maximum '
                              'capacity and an index for triage '
                              'support.')
