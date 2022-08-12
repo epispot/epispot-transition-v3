@@ -11,4 +11,3 @@ updates:
       prefix-development: "[dep/dev]"
     labels:
       - "dependabot"
-    

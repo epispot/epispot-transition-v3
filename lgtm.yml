@@ -1,6 +1,6 @@
 path_classifiers:
   test:
     - "**/test_*.*"
-    - "**/*_test.*"           
+    - "**/*_test.*"
   old:
     - "/explorables/*"

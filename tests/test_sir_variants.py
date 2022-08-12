@@ -1,7 +1,7 @@
 """
-Test of all simple SIR-related models and variants. 
-Does not use any functions as parameters or otherwise special 
-parameters. This test is meant for *basic* code coverage. For advanced 
+Test of all simple SIR-related models and variants.
+Does not use any functions as parameters or otherwise special
+parameters. This test is meant for *basic* code coverage. For advanced
 coverage, use the test_advanced.py check.
 
 STRUCTURE:

@@ -94,9 +94,9 @@ The GitHub repository has a vast array of samples using epispot. We are currentl
 ## Badges
 
 **PyPI**: ![latest-release](https://shields.mitmproxy.org/pypi/v/epispot.svg?color=success)
-[![Downloads](https://pepy.tech/badge/epispot)](https://pepy.tech/project/epispot)  
+[![Downloads](https://pepy.tech/badge/epispot)](https://pepy.tech/project/epispot)
 **LGTM**: [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/quantum9Innovation/epispot.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/quantum9Innovation/epispot/context:python)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/quantum9Innovation/epispot.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/quantum9Innovation/epispot/alerts/)  
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/quantum9Innovation/epispot.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/quantum9Innovation/epispot/alerts/)
 **Codecov**: [![codecov](https://codecov.io/gh/epispot/epispot/branch/master/graph/badge.svg?token=WGIM127RFY)](https://codecov.io/gh/epispot/epispot)
 
 ## Feedback

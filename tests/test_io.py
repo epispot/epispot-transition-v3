@@ -17,7 +17,7 @@ import epispot as epi
 # TESTS
 def test_main():
     """SIR Model"""
-    
+
     # params
     N = 1e6
     R_0 = lambda t: 2.0 + 0.5 * np.sin(t)
@@ -43,7 +43,7 @@ def test_main():
     # get solutions
     Solution = SIR_Model.integrate(np.linspace(0, 20, 100))
     predicted = Solution[99]
-    
+
     # save model
     if not path.exists('tests/artifacts'):
         mkdir('tests/artifacts')

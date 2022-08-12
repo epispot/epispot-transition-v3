@@ -13,13 +13,13 @@ from . import storage
 def query(match):
     """
     Query the literature for estimates.
-    
+
     ## Parameters
-    
+
     `match (tuple(str,...)|str)`: Query as tuple of IDs or slash-separated string.
         Use IDs for all queries except papers (use in-text citations).
         See the examples section for more information.
-    
+
     ## Example
 
     ```python
@@ -28,7 +28,7 @@ def query(match):
     ```
 
     ## Usage
-    
+
     ```python
     >>> from epispot.estimates.getters import query
     >>> query('SARS-CoV-2')
@@ -43,7 +43,7 @@ def query(match):
 
     If the query returns no results, a `ValueError` will be raised.
     No errors are raised related to query format, however.
-    
+
     """
     # convert to list if not already
     if isinstance(match, str): match = match.split('/')
@@ -68,7 +68,7 @@ def query(match):
                 if len(match) == 1:
                     return disease
                 else:
-                    return query_papers(disease.papers)  
+                    return query_papers(disease.papers)
 
     # search for match
     queried = query_diseases(storage.bulk)

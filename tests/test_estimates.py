@@ -15,7 +15,7 @@ import epispot as epi
 # TESTS
 def test_santos():
     """SEIR Model using pre-fit parameters from a genetic algorithm"""
-    
+
     # load data
     paper = 'SARS-CoV-2/Santos 2022/'
     beta = epi.estimates.getters.query(paper + 'beta')

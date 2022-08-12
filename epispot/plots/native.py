@@ -25,7 +25,7 @@ from . import plt
 plt.style.use(['science', 'no-latex'])  # default style
 
 
-def model(Model, time_frame, title='Compartment Populations over Time', 
+def model(Model, time_frame, title='Compartment Populations over Time',
           show_susceptible=False, log=False, latex=True, **kwargs):
     """
     Plots the results of one model using `matplotlib`.
@@ -37,28 +37,28 @@ def model(Model, time_frame, title='Compartment Populations over Time',
     ## Parameters
 
     `Model (epispot.models.Model)`: A `epispot.models.Model` object
-    
+
     `time_frame (range)`: A `range()` describing the time period to plot;
         use `timesteps=` keyword argument to use `np.linspace` as the `time_frame` is simply for the x-axis
-    
+
     `title='Compartment Populations over Time' (str)`: The title of the plot
-    
+
     `show_susceptible=False (bool)`: Boolean value describing whether or not to plot the Susceptible compartment.
-    
+
     ..important::
         This assumes that the Susceptible compartment is the first in `Model`
-        
+
     ..note::
         This can potentially result in less visibility for other compartments
         since usually the Susceptible compartment comprises of many, many
         more individuals than the other compartments combined.
 
     `log=False (bool)`: Boolean value indicating whether or not to use a logarithmic scale when plotting `Model`
-    
+
     `latex=True (bool)`: Turn off if you do not have LaTeX installed or want quicker loading times
-    
+
     `**kwargs**`: Keyword arguments to pass into `epispot.models.Model.integrate()`
-    
+
     ## Returns
 
     `pyplot` figure (display with `.show()`) containing the graph (`matplotlib.pyplot.figure`)
@@ -96,7 +96,7 @@ def model(Model, time_frame, title='Compartment Populations over Time',
 
 
 def stacked(Model, time_frame, title='Compartment Populations over Time',
-          compartments=None, show_susceptible=False, log=False, 
+          compartments=None, show_susceptible=False, log=False,
           latex=True, **kwargs):
     """
     Plots the results of one model using `matplotlib`.
@@ -108,34 +108,34 @@ def stacked(Model, time_frame, title='Compartment Populations over Time',
     ## Parameters
 
     `Model (epispot.models.Model)`: A `epispot.models.Model` object
-    
+
     `time_frame (range)`: A `range()` describing the time period to plot;
         use `timesteps=` keyword argument to use `np.linspace` as the `time_frame` is simply for the x-axis
-    
+
     `title='Compartment Populations over Time' (str)`: The title of the plot
 
     `compartments=None (list[int])`: A list of compartment indices to plot.
 
     `show_susceptible=False (bool)`: Boolean value describing whether or not to plot the Susceptible compartment.
-    
+
     ..important::
         This assumes that the Susceptible compartment is the first in `Model`
-        
+
     ..note::
         This can potentially result in less visibility for other compartments
         since usually the Susceptible compartment comprises of many, many
         more individuals than the other compartments combined.
 
     `log=False (bool)`: Boolean value indicating whether or not to use a logarithmic scale when plotting `Model`
-    
+
     `latex=True (bool)`: Turn off if you do not have LaTeX installed or want quicker loading times
-    
+
     `**kwargs**`: Keyword arguments to pass into `epispot.models.Model.integrate()`
-    
+
     ## Returns
 
     `pyplot` figure (display with `.show()`) containing the graph (`matplotlib.pyplot.figure`)
-    
+
     """
 
     if latex:
@@ -166,7 +166,7 @@ def stacked(Model, time_frame, title='Compartment Populations over Time',
 
     # plotting
     plt.figure(figsize=(9, 5))
-    plt.stackplot(time_frame, *[DataFrame[Model.names[compartment]] for compartment in compartments], 
+    plt.stackplot(time_frame, *[DataFrame[Model.names[compartment]] for compartment in compartments],
                   labels=[names[compartment] for compartment in compartments])
 
     if log:

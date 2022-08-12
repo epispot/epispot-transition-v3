@@ -26,7 +26,7 @@ def test_SIRS():
     """
     Recurrent SIR Model:
     Susceptible → Infected → Removed → Susceptible
-    
+
     """
     # params
     N = 1e6
@@ -59,7 +59,7 @@ def test_SIRS():
 def test_SIHCR():
     """
     Critical compartment test (without triage*):
-    
+
     Susceptible → Infected → Removed
     Infected → Hospitalized → Removed
     Hospitalized → Critical → Removed
@@ -100,6 +100,6 @@ def test_SIHCR():
     Solution = SIHCR_Model.integrate(np.linspace(0, 20, 100))
     predicted = np.around(Solution[99], -2)
     assert np.allclose(
-        predicted, 
+        predicted,
         np.array([2.115e5, 1.000e2, 1.000e2, 5.000e2, 7.877e5])
     )

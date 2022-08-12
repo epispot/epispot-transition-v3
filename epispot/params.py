@@ -18,10 +18,10 @@ from . import np
 class Distribution:
     """The base class for all parameter distributions."""
     def __init__(
-        self, 
-        name=None, 
-        dist=lambda c: c, 
-        description=None, 
+        self,
+        name=None,
+        dist=lambda c: c,
+        description=None,
     ):
         """
         Create a distribution to use in place of parameters:
@@ -31,7 +31,7 @@ class Distribution:
         `z=0 (float)`: Amount of random noise to add to the distribution.
             *Magnitude of a uniform distribution (added to final result)*
 
-        `**kwargs`: Additional keyword arguments to pass to the 
+        `**kwargs`: Additional keyword arguments to pass to the
                     distribution.
 
         ## Parameters
@@ -65,7 +65,7 @@ class Distribution:
         self.name = name
         self.dist = dist
         self.description = description
-    
+
     def __repr__(self):
         return f'<{self.name} distribution>'
     def __str__(self):
@@ -85,7 +85,7 @@ class Gamma(Distribution):
         ## Parameters
 
         `type='rel_beta'`: Type of distribution to use.
-            
+
         **Options**:
 
         - `'rel-beta'`: Relative β distribution
@@ -98,7 +98,7 @@ class Gamma(Distribution):
                 self.name = 'Relative-β Distribution'
                 self.description = 'Distribution of γ relative to β'
                 self.dist = lambda t: Gamma.rel_beta(t, **kwargs)
-    
+
     @staticmethod
     def rel_beta(t, R_0, beta):
         """
@@ -162,7 +162,7 @@ class R_0(Distribution):
                 self.description = 'Follows the equation of a normal ' \
                                    'distribution (peaks near the center)'
                 self.dist = lambda t: R_0.bell(t, **kwargs)
-    
+
     @staticmethod
     def rel_beta(t, gamma, beta):
         """
@@ -200,9 +200,9 @@ class R_0(Distribution):
 
         `c=1 (float)`: Maximum variation
 
-        ..note:: 
-        
-            With `y_0=0`, this gives the maximum *value* of 
+        ..note::
+
+            With `y_0=0`, this gives the maximum *value* of
             the distribution.
 
         `k=1 (float)`: Rate of decline
@@ -228,7 +228,7 @@ class R_0(Distribution):
     @staticmethod
     def bell(t, k=1/10, x_0=10, y_0=1):
         """
-        Bell curve distribution of R naught:   
+        Bell curve distribution of R naught:
         <!--- $$ e^{-k(x-x_0)^2} $$ -->
 
         ## Function Parameters
@@ -265,7 +265,7 @@ class N(Distribution):
         `type='constant' (|'linear')`: Type of distribution to use.
 
         **Options**:
-        
+
         - `'constant'`: Constant population
         - `'linear'`: Linear population increase/decline
 
@@ -332,7 +332,7 @@ class N(Distribution):
 
         Create a population structure with initial population of `10` and defined birth and death rates.
 
-        ..note:: Callable arguments accepted for `birth` and `death`, 
+        ..note:: Callable arguments accepted for `birth` and `death`,
                  but they must give *cumulative* values for estimates to
                  be correct.
 
@@ -340,4 +340,3 @@ class N(Distribution):
         if callable(birth): birth = birth(t)
         if callable(death): death = death(t)
         return N_0 * (1 + birth * t - death * t)
-                

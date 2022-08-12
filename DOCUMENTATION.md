@@ -19,7 +19,7 @@ def function(parameters):
     ## Parameters
 
     `parameters (type)`: description
-    
+
     `another_parameter=default (type)`: very long description that has punctuation;
       thus, it is split across lines.
       Continuing lines are indented.

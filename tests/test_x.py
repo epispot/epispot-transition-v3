@@ -1,7 +1,7 @@
 """
 Basic packaging checks
 
-STRUCTURE: 
+STRUCTURE:
 ├ base
     ├ dependency (x2)
     └ sanity

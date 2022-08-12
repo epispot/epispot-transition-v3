@@ -1,8 +1,8 @@
 """
-The `epispot.models` classes store different types of epidemiological 
-models in a compact form useful for integration. Models can be 
-differentiated, integrated, and examined by calling class methods. 
-Additionally, epispot models are portable—they can be used throughout 
+The `epispot.models` classes store different types of epidemiological
+models in a compact form useful for integration. Models can be
+differentiated, integrated, and examined by calling class methods.
+Additionally, epispot models are portable—they can be used throughout
 the package to generate plots, run predictions, etc.
 """
 
@@ -13,8 +13,8 @@ from . import dill, np, version, warnings
 
 class Model:
     """
-    The base model class for 
-    [compartmental models](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology). 
+    The base model class for
+    [compartmental models](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology).
     Compartmental models are models composed of various sub-models,
     known as "compartments."
     For example, the common SIR model is an example of a compartmental model with the Susceptible,
@@ -23,7 +23,7 @@ class Model:
     .. versionadded:: v3.0.0-alpha-2
 
     """
-    def __init__(self, initial_population, comps=None, comp_map=None, 
+    def __init__(self, initial_population, comps=None, comp_map=None,
                  matrix=None):
         """
         Initialize the `Model` class; all optional parameters can be added through the `epispot.models.Model.add` method.
@@ -40,7 +40,7 @@ class Model:
             This sublist should contain the indices of each of the compartments in `comps` that it connects to.
             If the compartment does not connect to any other compartments,
             leave the sublist blank.
-        
+
         `matrix=None (|list[list[tuple(float|func(t: float)->float, float|func(t: float)->float)]])`:
             Rate and probability matrix describing the exchange rates between compartments.
             Like `map`, this is a list of lists.
@@ -61,31 +61,31 @@ class Model:
             ┌───┐     ┌───┐     ┌───┐
             │ A │ ──> │ C │ ──> │ B │
             └───┘     └───┘     └───┘
-        
+
         To create a compartmental model with these three classes, use:
 
         ```python
-        comps = [A, B, C], 
+        comps = [A, B, C],
         map = [
             [1, 2],     # A
             [],         # B
             [1]         # C
         ],
         matrix = [
-            [(1, 1), (1/2, 1/3), (1/2, 1/3)],     # A[A, B, C] 
+            [(1, 1), (1/2, 1/3), (1/2, 1/3)],     # A[A, B, C]
             [(1, 1), (1, 1), (1, 1)],                 # B[A, B, C]
             [(1, 1), (1/2, 1/3), (1, 1)]            # C[A, B, C]
         ]
         ```
 
-        This creates a compartmental model where all the connections 
+        This creates a compartmental model where all the connections
         have a probability of `1/2` and rate of `1/3`.
-        
+
         ## **Additional Notes**
 
-        For more information about this 
-        feature, or if you're interested in giving feedback, see the 
-        discussion 
+        For more information about this
+        feature, or if you're interested in giving feedback, see the
+        discussion
         [here on GitHub](https://github.com/epispot/epispot/issues/73).
 
         ..versionadded:: v3.0.0-alpha-2
@@ -116,7 +116,7 @@ class Model:
         Adding, removing, or modifying compartments after this step will automatically de-compile the model,
         requiring it to be compiled again after changes have been made.
 
-        .. important:: 
+        .. important::
            Only run after all the compartments have been
            added to the model.
 
@@ -132,7 +132,7 @@ class Model:
         if not custom:
             for i, compartment in enumerate(self.compartments):
                 compartment._check(self.map[i], self.compartments)
-        
+
         # aggregate all compartments by type
         self.aggregated = {}
         for i, compartment in enumerate(self.compartments):
@@ -157,7 +157,7 @@ class Model:
         ## Returns
 
         List of corresponding compartment derivatives (`list[float]`)
-        
+
         """
         if not self.compiled:  # pragma: no cover
             warnings.warn('An epispot model has not been compiled yet. '
@@ -168,21 +168,21 @@ class Model:
         derivative = np.zeros((len(self.compartments), ))
         for num, compartment in enumerate(self.compartments):
             if num in self.aggregated['Susceptible']:
-                delta = compartment.diff(time, 
-                                         system, 
+                delta = compartment.diff(time,
+                                         system,
                                          num,
-                                         self.map[num], 
+                                         self.map[num],
                                          self.matrix[num],
                                          infecteds=
                                          self.aggregated['Infected'])
             else:
-                delta = compartment.diff(time, 
-                                         system, 
+                delta = compartment.diff(time,
+                                         system,
                                          num,
-                                         self.map[num], 
+                                         self.map[num],
                                          self.matrix[num])
             derivative += delta
-        
+
         return derivative
 
     def integrate(self, timesteps, starting_state=None):
@@ -195,7 +195,7 @@ class Model:
         ## Parameters
 
         `timesteps (range)`: range of evenly-spaced times starting at the epidemic start time and ending at the time of prediction.
-        
+
         `starting_state=None (|list[int])`: List of initial values for each compartment.
             This is used as the initial vector for the integration process.
             If no `starting_state` is provided, it will default to the having only 1 person in the next non-Susceptible compartment.
@@ -212,7 +212,7 @@ class Model:
 
         ## Example
 
-        For example, the following would be an expected return type for 
+        For example, the following would be an expected return type for
         an SIR model with a population of `100`:
 
         ```python
@@ -244,10 +244,10 @@ class Model:
             system[1] = 1
 
         delta = timesteps[1] - timesteps[0]
-        
+
         for timestep in timesteps:
 
-            # calculate the derivative for each compartment at this 
+            # calculate the derivative for each compartment at this
             # timestep and update the system accordingly
 
             derivatives = self.diff(timestep, system)
@@ -268,8 +268,8 @@ class Model:
         `comp_map (list[int])`: Slice of the larger `map` specified in `epispot.models.Model`.
             This should simply include the compartment connections for this specific compartment.
 
-        `matrix (list[tuple(float|func(t: float)->float, float|func(t: float)->float)])`: Slice of the larger `matrix` specified in 
-                  `epispot.models.Model`. As with `map`, this should 
+        `matrix (list[tuple(float|func(t: float)->float, float|func(t: float)->float)])`: Slice of the larger `matrix` specified in
+                  `epispot.models.Model`. As with `map`, this should
                   only include the rates and probabilities for this
                   compartment's connections.
 
@@ -350,14 +350,14 @@ class Model:
 
         ## Security
 
-        ..warning:: 
+        ..warning::
             Be careful when loading a model from a file. Untrusted sources
             could potentially embed malicious code into various parts of the
             model which can lead to arbitrary code execution.
 
         ## Error Handling
 
-        - If the file does not exist, it will raise a 
+        - If the file does not exist, it will raise a
           `FileNotFoundError`.
 
         """

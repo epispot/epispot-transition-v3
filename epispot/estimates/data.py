@@ -4,7 +4,7 @@ They are classified into a hierarchy of classes:
 
 1. `epispot.estimates.utils.Disease` represents a specific disease (e.g. COVID-19)
 2. `epispot.estimates.utils.Paper` represents a specific study published in the literature regarding a specific disease (e.g. Ganyani, et al. 2020)
-3. `epispot.estimates.utils.Estimate` represents a specific parameter estimate presented in a particular paper about a specific disease 
+3. `epispot.estimates.utils.Estimate` represents a specific parameter estimate presented in a particular paper about a specific disease
     (e.g. the recovery rate of COVID-19)
 
 .. note::
@@ -130,7 +130,7 @@ tsay = utils.Paper(
         'url': 'https://www.fmda.org/COVID/Published-Peer-Reviewed-Journal-Articles/s41598-020-67459-8.pdf',
     },
     full='Tsay, C., Lejarza, F., Stadtherr, M. A., & Baldea, M. (2020). Modeling, state estimation, and optimal control for the US COVID-19 outbreak. Scientific Reports, 10(1), 10711. https://doi.org/10.1038/s41598-020-67459-8',
-)      
+)
 bentout = utils.Paper(
     ('Bentout', 'et al.', 2020),
     params=[

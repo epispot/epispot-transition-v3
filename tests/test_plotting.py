@@ -1,12 +1,12 @@
 """
 Test of the `plots` subpackage in `epispot`
 
-STRUCTURE: 
+STRUCTURE:
 ├ GLOBALS
     ├ N
     ├ start
         ├ 1
-        └ 2        
+        └ 2
     └ Model
 └ TESTS
     ├ web

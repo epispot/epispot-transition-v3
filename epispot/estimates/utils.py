@@ -11,11 +11,11 @@ from . import np, storage
 class Disease:
     """High-level grouping of estimates by disease."""
     def __init__(
-        self, 
+        self,
         id,
         papers,
-        name=None, 
-        description=None, 
+        name=None,
+        description=None,
     ):
         """
         Group estimates by disease:
@@ -26,7 +26,7 @@ class Disease:
             (in the case of COVID-19, e.g. `'SARS-CoV-2'`)
 
         `papers (list[epispot.estimates.utils.Paper])`: List of `epispot.estimates.utils.Paper` objects for the disease
-        
+
         `name=None (|str)`: Common (display) name for the disease
 
         `description=None (|str)`: Description of the disease
@@ -43,7 +43,7 @@ class Disease:
         )
         ```
 
-        Creates a `Disease` object for COVID-19, with relevant papers, 
+        Creates a `Disease` object for COVID-19, with relevant papers,
         name, and description.
 
         """
@@ -53,7 +53,7 @@ class Disease:
         self.description = description
 
         storage.bulk.append(self)
-    
+
     def __repr__(self):
         return self.id
     def __str__(self):
@@ -65,12 +65,12 @@ class Disease:
 class Paper:
     """High-level grouping of parameter estimates by paper."""
     def __init__(
-        self, 
+        self,
         id,
         params,
         metadata=None,
-        in_text=None, 
-        full=None, 
+        in_text=None,
+        full=None,
     ):
         """
         Group parameter estimates by paper:
@@ -80,9 +80,9 @@ class Paper:
         `id (tuple(str, str, int|str))`: Unique identifier tuple containing in-text citation info:
             e.g. `('Ganyani', 'et al.', 2020)`
             (replace `'et al.'` with a second author name if there are only two authors; omit if there is only one author)
-        
+
         `params (list[epispot.estimates.utils.Estimate])`: List of `epispot.estimates.utils.Estimate` objects in the paper
-        
+
         `metadata=None (|dict)`: Additional metadata about the paper as object with the following format:
 
         ```python
@@ -96,9 +96,9 @@ class Paper:
             'misc': {...}  # store other info here
         }
         ```
-        
+
         `in_text=None (|str)`: More detailed in-text citation (as string) if necessary
-        
+
         `full=None (|str)`: Full citation (as string) if necessary.
             Built-in estimates use APA style citations.
 
@@ -115,7 +115,7 @@ class Paper:
         ```
 
         Create a paper that references the study by Ganyani et al. (2020).
-        
+
         """
         if not in_text:
             id_str = [str(i) for i in id]
@@ -129,7 +129,7 @@ class Paper:
         self.metadata = metadata
         self.in_text = in_text
         self.full = full
-    
+
     def __repr__(self):
         return self.in_text
     def __str__(self):
@@ -146,11 +146,11 @@ class Paper:
 class Estimate:
     """The base class for all estimates from the literature."""
     def __init__(
-        self, 
+        self,
         id,
-        dist, 
-        name=None, 
-        description=None, 
+        dist,
+        name=None,
+        description=None,
     ):
         """
         Load an estimate or distribution from the literature:
@@ -160,11 +160,11 @@ class Estimate:
         `z=0 (float)`: Amount of random noise to add to the distribution.
             *Magnitude of a uniform distribution (added to final result)*
 
-        `**kwargs`: Additional keyword arguments to pass to the 
+        `**kwargs`: Additional keyword arguments to pass to the
                     distribution.
 
         ## Parameters
-        
+
         `id (str)`: Identifier for the estimate (e.g. `'R_0'`)
 
         `dist (float | func(t: float)->float)`: Constant value or callable function for the estimate
@@ -194,7 +194,7 @@ class Estimate:
         self.name = name
         self.dist = dist
         self.description = description
-    
+
     def __repr__(self):
         return self.id
     def __str__(self):

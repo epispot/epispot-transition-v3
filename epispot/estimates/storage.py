@@ -7,6 +7,6 @@ Each stored estimate is added to one of the storage containers which is then acc
 bulk = []
 """
 Use this list to see all estimates.
-Any estimates added through `epispot.estimates.utils` can be queried 
+Any estimates added through `epispot.estimates.utils` can be queried
 from here as well.
 """

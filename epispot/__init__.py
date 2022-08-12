@@ -1,8 +1,8 @@
 """
 .. include:: ../README.md
-<!-- 
-Documentation available at: 
-https://epispot.github.io/epispot/en/v3.0.0-alpha-3 
+<!--
+Documentation available at:
+https://epispot.github.io/epispot/en/v3.0.0-alpha-3
 -->
 """
 
@@ -60,12 +60,12 @@ def _check_updates():
 # global funcs
 def sanity_check():
     """
-    Sanity check to check for basic installation errors, 
+    Sanity check to check for basic installation errors,
     version conflicts, upgrades, etc.
 
-    **Run this if you experience any problems with epispot and before 
+    **Run this if you experience any problems with epispot and before
     submitting any issues**
-    
+
     """
     # check for installation errors
     if not source or not version:  # pragma: no cover
@@ -111,7 +111,7 @@ Check version information with:
     >>> print(epispot.version)
 ```
 
-Version information is also available through the `__version__` 
+Version information is also available through the `__version__`
 property, included for legacy support.
 """
 __version__ = version  # alias for version
