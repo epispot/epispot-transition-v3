@@ -28,13 +28,10 @@ def dependency_check():
 # imports
 import warnings
 
-
 # dependencies
 import plotly.express as px
-from matplotlib import pyplot as plt
 from matplotlib import colors
-
+from matplotlib import pyplot as plt
 
 # local
-from . import web
-from . import native
+from . import native, web

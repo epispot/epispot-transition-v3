@@ -6,16 +6,11 @@ This sub-package contains various estimates from the literature to be used in co
 """
 
 # imports
+import datetime as dt
 import warnings
-
 
 # dependencies
 import numpy as np
-import datetime as dt
-
 
 # local
-from . import storage
-from . import utils
-from . import data
-from . import getters
+from . import data, getters, storage, utils

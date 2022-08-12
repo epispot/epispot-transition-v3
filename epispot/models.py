@@ -7,10 +7,8 @@ the package to generate plots, run predictions, etc.
 """
 
 from copy import deepcopy
-from . import dill
-from . import warnings
-from . import np
-from . import version
+
+from . import dill, np, version, warnings
 
 
 class Model:

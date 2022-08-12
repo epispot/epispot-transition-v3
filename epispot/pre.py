@@ -10,9 +10,7 @@ Model.compile(custom=True)
 ```
 """
 
-from . import comps
-from . import models
-from . import np
+from . import comps, models, np
 
 
 def SIR(R_0, gamma, N):

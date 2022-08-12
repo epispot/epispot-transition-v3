@@ -13,8 +13,7 @@ They are classified into a hierarchy of classes:
 """
 
 # imports
-from . import utils
-from . import dt
+from . import dt, utils
 
 
 # COVID-19

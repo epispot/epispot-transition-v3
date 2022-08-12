@@ -21,6 +21,7 @@ In order to use LaTeX, please follow the installation instructions for your oper
 """
 
 from . import plt
+
 plt.style.use(['science', 'no-latex'])  # default style
 
 

@@ -8,6 +8,7 @@ STRUCTURE:
 """
 
 import numpy as np
+
 import epispot as epi
 
 

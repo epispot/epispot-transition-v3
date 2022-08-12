@@ -8,7 +8,9 @@ STRUCTURE:
 """
 
 from os import mkdir, path
+
 import numpy as np
+
 import epispot as epi
 
 

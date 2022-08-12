@@ -24,8 +24,8 @@ STRUCTURE:
 """
 
 import numpy as np
-import epispot as epi
 
+import epispot as epi
 
 # GLOBALS
 N = 1e6

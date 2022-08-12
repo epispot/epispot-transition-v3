@@ -5,8 +5,7 @@ It can also be used to import estimates that epispot does not already have.
 """
 
 # imports
-from . import np
-from . import storage
+from . import np, storage
 
 
 class Disease:

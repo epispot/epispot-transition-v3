@@ -28,15 +28,14 @@ def dependency_check():
 
 
 # imports
-import warnings
 import random
-import dill
-
+import warnings
 
 # dependencies
+import dill
 import numpy as np
-from matplotlib import pyplot as plt
 from matplotlib import colors
+from matplotlib import pyplot as plt
 
 
 # helper funcs
@@ -127,13 +126,7 @@ Build stability:
 
 
 # local
-from . import comps
-from . import estimates
-from . import models
-from . import params
-from . import plots
-from . import pre
-
+from . import comps, estimates, models, params, plots, pre
 
 # metadata
 source = 'https://www.github.com/epispot/epispot'

@@ -7,7 +7,6 @@ together in a `epispot.models.Model` object, they can be quite powerful.
 
 from . import np
 
-
 __pdoc__ = {}
 __pdoc__['Compartment._base_check'] = True
 

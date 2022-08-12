@@ -19,15 +19,6 @@ def test_base():
 
 def test_integrity():
     """Tests epispot's integrity (ensures no module is missing)"""
-    from epispot import comps
-    from epispot import models
-    from epispot import params
-    from epispot import pre
-
-    from epispot.plots import web
-    from epispot.plots import native
-    
-    from epispot.estimates import data
-    from epispot.estimates import getters
-    from epispot.estimates import storage
-    from epispot.estimates import utils
+    from epispot import comps, models, params, pre
+    from epispot.estimates import data, getters, storage, utils
+    from epispot.plots import native, web

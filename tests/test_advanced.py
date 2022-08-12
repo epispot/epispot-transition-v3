@@ -13,8 +13,8 @@ STRUCTURE:
 """
 
 import numpy as np
-import epispot as epi
 
+import epispot as epi
 
 # GLOBALS
 R_0 = epi.params.R_0(type='bell')
