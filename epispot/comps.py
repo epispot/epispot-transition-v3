@@ -283,14 +283,14 @@ class Susceptible(Compartment):
             n = n(time)
 
         # get total number of infecteds
-        infecteds = 0
+        total_infecteds = 0
         for i in infecteds:
-            infecteds += system[i]
+            total_infecteds += system[i]
 
         for connection in minimap:
 
             # evaluate compartment derivative
-            deriv = r_0 * gamma * system[pos] * infecteds / n
+            deriv = r_0 * gamma * system[pos] * total_infecteds / n
             deriv *= minimatrix[connection][0] * minimatrix[connection][1]
 
             # ensure compartment populations are non-negative
