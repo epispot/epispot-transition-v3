@@ -13,7 +13,7 @@ Model.compile(custom=True)
 from . import comps, models, np
 
 
-def SIR(R_0, gamma, N):
+def sir(r_0, gamma, n):
     """
     The well-known
     [SIR Model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology#The_SIR_model);
@@ -24,7 +24,7 @@ def SIR(R_0, gamma, N):
 
     ## Parameters
 
-    `R_0 (float|func(t: float)->float)`: The
+    `r_0 (float|func(t: float)->float)`: The
         [basic reproduction number](https://en.wikipedia.org/wiki/Basic_reproduction_number),
         indicating how infectious a given disease is.
         A value of above 1 indicates a high probability of transmission and thus an increasing infected population.
@@ -34,7 +34,7 @@ def SIR(R_0, gamma, N):
     `gamma (float|func(t: float)->float)`: The total recovery rate of patients.
         This is *not* a measure of how long it takes patients in any given compartment to recover but rather a measure of one divided by the average time of infectiousness.
 
-    `N`: The initial population size; should be the same as that passed into the `epispot.models.Model` class.
+    `n`: The initial population size; should be the same as that passed into the `epispot.models.Model` class.
 
     ## Returns
 
@@ -42,28 +42,28 @@ def SIR(R_0, gamma, N):
 
     """
     # compile compartments
-    Susceptible = comps.Susceptible(R_0, gamma, N)
-    Infected = comps.Infected()
-    Removed = comps.Removed()
+    susceptible = comps.Susceptible(r_0, gamma, n)
+    infected = comps.Infected()
+    removed = comps.Removed()
 
     # compile parameters
-    if callable(N):
-        N = N(0)
+    if callable(n):
+        n = n(0)
     matrix = np.empty((3, 3), dtype=tuple)
     matrix.fill((1.0, 1.0))  # default probability and rate
     matrix[1][2] = (1.0, gamma)  # I => R
 
     # compile model
-    SIR_Model = models.Model(N)
-    SIR_Model.add(Susceptible, [1], matrix[0])
-    SIR_Model.add(Infected, [2], matrix[1])
-    SIR_Model.add(Removed, [], matrix[2])
-    SIR_Model.compile()
+    sir_model = models.Model(n)
+    sir_model.add(susceptible, [1], matrix[0])
+    sir_model.add(infected, [2], matrix[1])
+    sir_model.add(removed, [], matrix[2])
+    sir_model.compile()
 
-    return SIR_Model
+    return sir_model
 
 
-def SEIR(R_0, gamma, N, delta):
+def seir(r_0, gamma, n, delta):
     """
     An extension on the basic
     [SIR Model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology#The_SIR_model)
@@ -76,7 +76,7 @@ def SEIR(R_0, gamma, N, delta):
 
     ## Parameters
 
-    `R_0 (float|func(t: float)->float)`: The
+    `r_0 (float|func(t: float)->float)`: The
         [basic reproduction number](https://en.wikipedia.org/wiki/Basic_reproduction_number),
         indicating how infectious a given disease is.
         A value of above 1 indicates a high probability of transmission and thus an increasing infected population.
@@ -86,7 +86,7 @@ def SEIR(R_0, gamma, N, delta):
     `gamma (float|func(t: float)->float)`: The total recovery rate of patients.
         This is *not* a measure of how long it takes patients in any given compartment to recover but rather a measure of one divided by the average time of infectiousness.
 
-    `N (float|func(t: float)->float)`: The initial population size;
+    `n (float|func(t: float)->float)`: The initial population size;
         should be the same as that passed into the `epispot.models.Model` class.
 
     `delta (float|func(t: float)->float)`: The reciprocal of the incubation period for the disease.
@@ -98,31 +98,31 @@ def SEIR(R_0, gamma, N, delta):
 
     """
     # compile compartments
-    Susceptible = comps.Susceptible(R_0, gamma, N)
-    Exposed = comps.Exposed()
-    Infected = comps.Infected()
-    Removed = comps.Removed()
+    susceptible = comps.Susceptible(r_0, gamma, n)
+    exposed = comps.Exposed()
+    infected = comps.Infected()
+    removed = comps.Removed()
 
     # compile parameters
-    if callable(N):
-        N = N(0)
+    if callable(n):
+        n = n(0)
     matrix = np.empty((4, 4), dtype=tuple)
     matrix.fill((1.0, 1.0))  # default probability and rate
     matrix[1][2] = (1.0, delta)  # E => I
     matrix[2][3] = (1.0, gamma)  # I => R
 
     # compile model
-    SEIR_Model = models.Model(N)
-    SEIR_Model.add(Susceptible, [1], matrix[0])
-    SEIR_Model.add(Exposed, [2], matrix[1])
-    SEIR_Model.add(Infected, [3], matrix[2])
-    SEIR_Model.add(Removed, [], matrix[3])
-    SEIR_Model.compile()
+    seir_model = models.Model(n)
+    seir_model.add(susceptible, [1], matrix[0])
+    seir_model.add(exposed, [2], matrix[1])
+    seir_model.add(infected, [3], matrix[2])
+    seir_model.add(removed, [], matrix[3])
+    seir_model.compile()
 
-    return SEIR_Model
+    return seir_model
 
 
-def SIRD(R_0, gamma, N, alpha, rho=1.0):
+def sird(r_0, gamma, n, alpha, rho=1.0):
     """
     An addition to the
     [SIR Model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology#The_SIR_model),
@@ -132,7 +132,7 @@ def SIRD(R_0, gamma, N, alpha, rho=1.0):
 
     ## Parameters
 
-    `R_0 (float|func(t: float)->float)`: The
+    `r_0 (float|func(t: float)->float)`: The
         [basic reproduction number](https://en.wikipedia.org/wiki/Basic_reproduction_number),
         indicating how infectious a given disease is.
         A value of above 1 indicates a high probability of transmission and thus an increasing infected population.
@@ -142,7 +142,7 @@ def SIRD(R_0, gamma, N, alpha, rho=1.0):
     `gamma (float|func(t: float)->float)`: The total recovery rate of patients.
         This is *not* a measure of how long it takes patients in any given compartment to recover but rather a measure of one divided by the average time of infectiousness.
 
-    `N (float|func(t: float)->float)`: The initial population size;
+    `n (float|func(t: float)->float)`: The initial population size;
         should be the same as that passed into the `epispot.models.Model` class.
 
     `alpha (float|func(t: float)->float)`: The probability of death
@@ -159,14 +159,14 @@ def SIRD(R_0, gamma, N, alpha, rho=1.0):
 
     """
     # compile compartments
-    Susceptible = comps.Susceptible(R_0, gamma, N)
-    Infected = comps.Infected()
-    Recovered = comps.Recovered()
-    Dead = comps.Dead()
+    susceptible = comps.Susceptible(r_0, gamma, n)
+    infected = comps.Infected()
+    recovered = comps.Recovered()
+    dead = comps.Dead()
 
     # compile parameters
-    if callable(N):
-        N = N(0)
+    if callable(n):
+        n = n(0)
     matrix = np.empty((4, 4), dtype=tuple)
     matrix.fill((1.0, 1.0))  # default probability and rate
     recovery_rate = (gamma - alpha * rho) / (1 - alpha)
@@ -174,11 +174,11 @@ def SIRD(R_0, gamma, N, alpha, rho=1.0):
     matrix[1][3] = (alpha, rho)  # I => D
 
     # compile model
-    SIR_Model = models.Model(N)
-    SIR_Model.add(Susceptible, [1], matrix[0])
-    SIR_Model.add(Infected, [2, 3], matrix[1])
-    SIR_Model.add(Recovered, [], matrix[2])
-    SIR_Model.add(Dead, [], matrix[3])
-    SIR_Model.compile()
+    sir_model = models.Model(n)
+    sir_model.add(susceptible, [1], matrix[0])
+    sir_model.add(infected, [2, 3], matrix[1])
+    sir_model.add(recovered, [], matrix[2])
+    sir_model.add(dead, [], matrix[3])
+    sir_model.compile()
 
-    return SIR_Model
+    return sir_model

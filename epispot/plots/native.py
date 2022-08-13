@@ -25,7 +25,7 @@ from . import plt
 plt.style.use(['science', 'no-latex'])  # default style
 
 
-def model(Model, time_frame, title='Compartment Populations over Time',
+def model(model, time_frame, title='Compartment Populations over Time',
           show_susceptible=False, log=False, latex=True, **kwargs):
     """
     Plots the results of one model using `matplotlib`.
@@ -36,7 +36,7 @@ def model(Model, time_frame, title='Compartment Populations over Time',
 
     ## Parameters
 
-    `Model (epispot.models.Model)`: A `epispot.models.Model` object
+    `model (epispot.models.Model)`: A `epispot.models.Model` object
 
     `time_frame (range)`: A `range()` describing the time period to plot;
         use `timesteps=` keyword argument to use `np.linspace` as the `time_frame` is simply for the x-axis
@@ -67,27 +67,27 @@ def model(Model, time_frame, title='Compartment Populations over Time',
     if latex:
         plt.style.use('science')
 
-    DataFrame = {}
-    System = Model.integrate(time_frame, **kwargs)
+    data_frame = {}
+    system = model.integrate(time_frame, **kwargs)
 
     # variable substitutions
-    names = Model.names
+    names = model.names
 
     # setup
-    for name in Model.names:
-        DataFrame[name] = []
+    for name in model.names:
+        data_frame[name] = []
 
-    for day in System:
+    for day in system:
         for i, compartment in enumerate(day):
-            DataFrame[Model.names[i]].append(compartment)
+            data_frame[model.names[i]].append(compartment)
 
     # plotting
     plt.figure(figsize=(9, 5))
-    for compartment, _ in enumerate(Model.compartments):
+    for compartment, _ in enumerate(model.compartments):
         if (not show_susceptible and compartment != 0) or show_susceptible:
             plt.plot(
                 time_frame,
-                DataFrame[Model.names[compartment]],
+                data_frame[model.names[compartment]],
                 label=names[compartment]
             )
 
@@ -99,7 +99,7 @@ def model(Model, time_frame, title='Compartment Populations over Time',
     return plt
 
 
-def stacked(Model, time_frame, title='Compartment Populations over Time',
+def stacked(model, time_frame, title='Compartment Populations over Time',
             compartments=None, show_susceptible=False, log=False,
             latex=True, **kwargs):
     """
@@ -111,7 +111,7 @@ def stacked(Model, time_frame, title='Compartment Populations over Time',
 
     ## Parameters
 
-    `Model (epispot.models.Model)`: A `epispot.models.Model` object
+    `model (epispot.models.Model)`: A `epispot.models.Model` object
 
     `time_frame (range)`: A `range()` describing the time period to plot;
         use `timesteps=` keyword argument to use `np.linspace` as the `time_frame` is simply for the x-axis
@@ -145,22 +145,22 @@ def stacked(Model, time_frame, title='Compartment Populations over Time',
     if latex:
         plt.style.use('science')
 
-    DataFrame = {}
-    System = Model.integrate(time_frame, **kwargs)
+    data_frame = {}
+    system = model.integrate(time_frame, **kwargs)
 
     # variable substitutions
     if compartments is None:
-        compartments = list(range(len(Model.compartments)))
+        compartments = list(range(len(model.compartments)))
 
-    names = Model.names
+    names = model.names
 
     # setup
-    for name in Model.names:
-        DataFrame[name] = []
+    for name in model.names:
+        data_frame[name] = []
 
-    for day in System:
+    for day in system:
         for i, compartment in enumerate(day):
-            DataFrame[Model.names[i]].append(compartment)
+            data_frame[model.names[i]].append(compartment)
 
     if not show_susceptible:
         for i, compartment in enumerate(compartments):
@@ -170,7 +170,7 @@ def stacked(Model, time_frame, title='Compartment Populations over Time',
 
     # plotting
     plt.figure(figsize=(9, 5))
-    plt.stackplot(time_frame, *[DataFrame[Model.names[compartment]] for compartment in compartments],
+    plt.stackplot(time_frame, *[data_frame[model.names[compartment]] for compartment in compartments],
                   labels=[names[compartment] for compartment in compartments])
 
     if log:

@@ -112,7 +112,7 @@ class Paper:
         >>> from epispot.estimates.utils import Paper
         >>> ganyani = Paper(
         ...     id=('Ganyani', 'et al.', 2020),
-        ...     params=[R_0, gamma, beta],
+        ...     params=[r_0, gamma, beta],
         ... )
         >>> ganyani.__cite__()
         'Ganyani et al. (2020)'
@@ -173,7 +173,7 @@ class Estimate:
 
         ## Parameters
 
-        `id (str)`: Identifier for the estimate (e.g. `'R_0'`)
+        `id (str)`: Identifier for the estimate (e.g. `'r_0'`)
 
         `dist (float | func(t: float)->float)`: Constant value or callable function for the estimate
 
@@ -186,7 +186,7 @@ class Estimate:
         ```python
         >>> from epispot.estimates.utils import Estimate
         >>> dist = Estimate(
-        ...     id='R_0',
+        ...     id='r_0',
         ...     dist=lambda t: 1 / (1 + np.exp(-t)),
         ...     name='Logistic R Naught Distribution',
         ...     description='A logistic distribution',

@@ -55,7 +55,7 @@ rho_tsay = utils.Estimate(
     description='Estimated using data from the U.S. in the context of an SEAIR model; referred to as "mu" in the paper',
 )
 r0_bentout = utils.Estimate(
-    id='R_0',
+    id='r_0',
     dist=lambda t: 4.1,
     name='Estimated initial R Naught',
     description='Estimated using data from the beginning of Algeria\'s COVID-19 outbreak in the context of an SEIR model',

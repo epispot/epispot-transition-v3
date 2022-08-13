@@ -83,7 +83,7 @@ def sanity_check():
     # check for updates
     _check_updates()
 
-def __cite__(bibtex=False):
+def cite(bibtex=False):
     """
     Returns the citation string for the package.
     Use `bibtex=True` to return the BibTeX-formatted citation.
@@ -139,5 +139,5 @@ docs = f'https://epispot.github.io/epispot/en/v{version}/'
 """Project documentation (version-specific)"""
 issues = 'https://www.github.com/epispot/epispot/issues'
 """Bug tracker"""
-citation = __cite__()
+citation = cite()
 """Static citation string"""

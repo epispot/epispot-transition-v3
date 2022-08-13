@@ -16,23 +16,23 @@ import epispot as epi
 
 
 # TESTS
-def test_SIR():
+def test_sir():
     """SIR Pre-Compiled Model Test"""
-    SIR = epi.pre.SIR(2.5, 1 / 2, 1e6)
-    Solution = SIR.integrate(range(100))
-    predicted = np.around(Solution[99], -2)
+    sir = epi.pre.sir(2.5, 1 / 2, 1e6)
+    solution = sir.integrate(range(100))
+    predicted = np.around(solution[99], -2)
     assert np.allclose(predicted, np.array([70900, 0, 929100]))
 
-def test_SEIR():
+def test_seir():
     """SEIR Pre-Compiled Model Test"""
-    SEIR = epi.pre.SEIR(2.5, 1 / 2, 1e6, 1 / 2)
-    Solution = SEIR.integrate(range(100))
-    predicted = np.around(Solution[99], -2)
+    seir = epi.pre.seir(2.5, 1 / 2, 1e6, 1 / 2)
+    solution = seir.integrate(range(100))
+    predicted = np.around(solution[99], -2)
     assert np.allclose(predicted, np.array([90300, 0, 0, 909700]))
 
-def test_SIRD():
+def test_sird():
     """SIRD Pre-Compiled Model Test"""
-    SIRD = epi.pre.SIRD(2.5, 1 / 2, 1e6, 1 / 3, rho=3 / 4)
-    Solution = SIRD.integrate(range(100))
-    predicted = np.around(Solution[99], -2)
+    sird = epi.pre.sird(2.5, 1 / 2, 1e6, 1 / 3, rho=3 / 4)
+    solution = sird.integrate(range(100))
+    predicted = np.around(solution[99], -2)
     assert np.allclose(predicted, np.array([70900, 0, 464600, 464600]))

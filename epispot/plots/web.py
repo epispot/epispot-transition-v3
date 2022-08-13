@@ -13,7 +13,7 @@ pip install plotly
 from . import px
 
 
-def model(Model, time_frame, title='Compartment Populations over Time',
+def model(model, time_frame, title='Compartment Populations over Time',
           show_susceptible=False, log=False, colors=None, **kwargs):
     """
     Plots the results of one model using `plotly`.
@@ -22,7 +22,7 @@ def model(Model, time_frame, title='Compartment Populations over Time',
 
     ## Parameters
 
-    `Model (epispot.models.Model)`: A `epispot.models.Model` object
+    `model (epispot.models.Model)`: A `epispot.models.Model` object
 
     `time_frame (range)`: A `range()` describing the time period to plot;
         use `timesteps=` keyword argument to use `np.linspace` as the `time_frame` is simply for the x-axis
@@ -53,29 +53,29 @@ def model(Model, time_frame, title='Compartment Populations over Time',
 
     """
 
-    DataFrame = {}
-    System = Model.integrate(time_frame, **kwargs)
+    data_frame = {}
+    system = model.integrate(time_frame, **kwargs)
 
     # variable substitutions
-    names = Model.names
+    names = model.names
 
     # setup
     for name in names:
-        DataFrame[name] = []
+        data_frame[name] = []
 
-    for day in System:
+    for day in system:
         for i, compartment in enumerate(day):
-            DataFrame[names[i]].append(compartment)
+            data_frame[names[i]].append(compartment)
 
     if not show_susceptible:
-        del DataFrame[names[0]]
+        del data_frame[names[0]]
 
     if not colors:
         colors = px.colors.qualitative.Alphabet
 
     # plotting
-    Figure = px.line(
-        DataFrame,
+    figure = px.line(
+        data_frame,
         labels={
             'index': 'Time (in days)',
             'value': 'Compartment Population'
@@ -86,7 +86,7 @@ def model(Model, time_frame, title='Compartment Populations over Time',
         log_y=log
     )
 
-    Figure.update_layout(
+    figure.update_layout(
         font=dict(
             family="Times New Roman, Serif",
             size=24,
@@ -100,10 +100,10 @@ def model(Model, time_frame, title='Compartment Populations over Time',
         ),
     )
 
-    return Figure
+    return figure
 
 
-def stacked(Model, time_frame, title='Compartment Populations over Time',
+def stacked(model, time_frame, title='Compartment Populations over Time',
             show_susceptible=False, log=False, colors=None, **kwargs):
     """
     Plots the results of one model using `plotly` as a stacked area chart.
@@ -112,7 +112,7 @@ def stacked(Model, time_frame, title='Compartment Populations over Time',
 
     ## Parameters
 
-    `Model (epispot.models.Model)`: A `epispot.models.Model` object
+    `model (epispot.models.Model)`: A `epispot.models.Model` object
 
     `time_frame (range)`: A `range()` describing the time period to plot;
         use `timesteps=` keyword argument to use `np.linspace` as the `time_frame` is simply for the x-axis
@@ -143,28 +143,28 @@ def stacked(Model, time_frame, title='Compartment Populations over Time',
 
     """
 
-    DataFrame = {}
-    System = Model.integrate(time_frame, **kwargs)
+    data_frame = {}
+    system = model.integrate(time_frame, **kwargs)
 
     # variable substitutions
-    names = Model.names
+    names = model.names
 
     # setup
     for name in names:
-        DataFrame[name] = []
+        data_frame[name] = []
 
-    for day in System:
+    for day in system:
         for i, compartment in enumerate(day):
-            DataFrame[names[i]].append(compartment)
+            data_frame[names[i]].append(compartment)
 
     if not show_susceptible:
-        del DataFrame[names[0]]
+        del data_frame[names[0]]
 
     if not colors:
         colors = px.colors.qualitative.Alphabet
 
     # plotting
-    Figure = px.area(DataFrame,
+    figure = px.area(data_frame,
                      labels={
                          'index': 'Time (in days)',
                          'value': 'Compartment Population'
@@ -174,7 +174,7 @@ def stacked(Model, time_frame, title='Compartment Populations over Time',
                      template='plotly_white',
                      log_y=log)
 
-    Figure.update_layout(
+    figure.update_layout(
         font=dict(
             family="Times New Roman, Serif",
             size=24,
@@ -188,4 +188,4 @@ def stacked(Model, time_frame, title='Compartment Populations over Time',
         ),
     )
 
-    return Figure
+    return figure

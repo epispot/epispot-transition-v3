@@ -105,13 +105,13 @@ class Gamma(Distribution):
             self.dist = lambda t: Gamma.rel_beta(t, **kwargs)
 
     @staticmethod
-    def rel_beta(t, R_0, beta):
+    def rel_beta(t, r_0, beta):
         """
         Distribution of γ relative to β.
 
         ## Function Parameters
 
-        `R_0 (float|func(t: float)->float)`: Reproduction number
+        `r_0 (float|func(t: float)->float)`: Reproduction number
 
         `beta (float|func(t: float)->float)`: Transmission rate
 
@@ -119,7 +119,7 @@ class Gamma(Distribution):
 
         ```python
         >>> from epispot.params import Gamma
-        >>> gamma = lambda t: Gamma.rel_beta(t, R_0=1, beta=0.5)
+        >>> gamma = lambda t: Gamma.rel_beta(t, r_0=1, beta=0.5)
         >>> gamma(0)
         0.5
         ```
@@ -129,11 +129,11 @@ class Gamma(Distribution):
 
         """
         if callable(beta): beta = beta(t)
-        if callable(R_0): R_0 = R_0(t)
-        return beta / R_0
+        if callable(r_0): r_0 = r_0(t)
+        return beta / r_0
 
 
-class R_0(Distribution):
+class RNaught(Distribution):
     """Models R naught in the SIR model."""
 
     def __init__(self, type='rel-beta', **kwargs):
@@ -157,17 +157,17 @@ class R_0(Distribution):
         if type == 'rel-beta':
             self.name = 'Relative-β Distribution'
             self.description = 'Distribution of γ relative to β'
-            self.dist = lambda t: R_0.rel_beta(t, **kwargs)
+            self.dist = lambda t: RNaught.rel_beta(t, **kwargs)
         elif type == 'logistic':
             self.name = 'Reverse Logistic Distribution'
             self.description = 'A reverse logistic distribution ' \
                                '(starts high and then drops)'
-            self.dist = lambda t: R_0.logistic(t, **kwargs)
+            self.dist = lambda t: RNaught.logistic(t, **kwargs)
         elif type == 'bell':
             self.name = 'Bell Curve'
             self.description = 'Follows the equation of a normal ' \
                                'distribution (peaks near the center)'
-            self.dist = lambda t: R_0.bell(t, **kwargs)
+            self.dist = lambda t: RNaught.bell(t, **kwargs)
 
     @staticmethod
     def rel_beta(t, gamma, beta):
@@ -183,9 +183,9 @@ class R_0(Distribution):
         ## Example
 
         ```python
-        >>> from epispot.params import R_0
-        >>> R_0 = lambda t: R_0.rel_beta(t, gamma=1, beta=0.5)
-        >>> R_0(0)
+        >>> from epispot.params import r_0
+        >>> r_0 = lambda t: r_0.rel_beta(t, gamma=1, beta=0.5)
+        >>> r_0(0)
         0.5
         ```
 
@@ -220,9 +220,9 @@ class R_0(Distribution):
         ## Example
 
         ```python
-        >>> from epispot.params import R_0
-        >>> R_0 = lambda t: R_0.logistic(t)
-        >>> R_0(0)
+        >>> from epispot.params import r_0
+        >>> r_0 = lambda t: r_0.logistic(t)
+        >>> r_0(0)
         1.5
         ```
 
@@ -248,9 +248,9 @@ class R_0(Distribution):
         ## Example
 
         ```python
-        >>> from epispot.params import R_0
-        >>> R_0 = lambda t: R_0.bell(t)
-        >>> R_0(0)
+        >>> from epispot.params import r_0
+        >>> r_0 = lambda t: r_0.bell(t)
+        >>> r_0(0)
         1
         ```
 
@@ -293,13 +293,13 @@ class N(Distribution):
             self.dist = lambda t: N.linear(t, **kwargs)
 
     @staticmethod
-    def constant(t, N_0):
+    def constant(t, n_0):
         """
         Constant-valued population.
 
         ## Function Parameters
 
-        `N_0 (int)`: Initial population size
+        `n_0 (int)`: Initial population size
 
         ## Example
 
@@ -313,16 +313,16 @@ class N(Distribution):
         Set a constant population of `10`.
 
         """
-        return N_0
+        return n_0
 
     @staticmethod
-    def linear(t, N_0, birth=0, death=0):
+    def linear(t, n_0, birth=0, death=0):
         """
         Linear population trend.
 
         ## Function Parameters
 
-        `N_0 (int)`: Initial population size
+        `n_0 (int)`: Initial population size
 
         `birth (float|func(t: float)->float)`: Birth rate
 
@@ -346,4 +346,4 @@ class N(Distribution):
         """
         if callable(birth): birth = birth(t)
         if callable(death): death = death(t)
-        return N_0 * (1 + birth * t - death * t)
+        return n_0 * (1 + birth * t - death * t)

@@ -202,13 +202,13 @@ class Susceptible(Compartment):
     `epispot.comps.Recovered` → `epispot.comps.Susceptible` → `epispot.comps.Exposed`, `epispot.comps.Infected`
     """
 
-    def __init__(self, R_0, gamma, N):
+    def __init__(self, r_0, gamma, n):
         """
         Initialize the Susceptible class:
 
         ## Parameters
 
-        `R_0 (float|func(t: float)->float)`: The
+        `r_0 (float|func(t: float)->float)`: The
             [basic reproduction number](https://en.wikipedia.org/wiki/Basic_reproduction_number),
             indicating how infectious a given disease is.
             A value of above 1 indicates a high probability of transmission and thus an increasing infected population.
@@ -225,9 +225,9 @@ class Susceptible(Compartment):
             'type': 'Susceptible',
         }
         super().__init__('Susceptible', config=config)
-        self.R_0 = R_0
+        self.r_0 = r_0
         self.gamma = gamma
-        self.N = N
+        self.n = n
 
     def _check(self, minimap, compartments):
         """Check wrapper for the Infected compartment"""
@@ -270,27 +270,27 @@ class Susceptible(Compartment):
         output = np.zeros(system.shape)
 
         # initialize parameters
-        R_0 = self.R_0
+        r_0 = self.r_0
         gamma = self.gamma
-        N = self.N
+        n = self.n
 
         # initialize time-dependent parameters
-        if callable(R_0):
-            R_0 = R_0(time)
+        if callable(r_0):
+            r_0 = r_0(time)
         if callable(gamma):
             gamma = gamma(time)
-        if callable(N):
-            N = N(time)
+        if callable(n):
+            n = n(time)
 
         # get total number of infecteds
-        I = 0
+        infecteds = 0
         for i in infecteds:
-            I += system[i]
+            infecteds += system[i]
 
         for connection in minimap:
 
             # evaluate compartment derivative
-            deriv = R_0 * gamma * system[pos] * I / N
+            deriv = r_0 * gamma * system[pos] * infecteds / n
             deriv *= minimatrix[connection][0] * minimatrix[connection][1]
 
             # ensure compartment populations are non-negative

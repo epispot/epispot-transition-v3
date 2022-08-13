@@ -5,7 +5,7 @@ Test of advanced modeling techniques with epispot
 STRUCTURE:
 ├ GLOBALS
     ├ E
-    ├ R_0
+    ├ r_0
     └ gamma
 └ TESTS
     ├ SIRS
@@ -17,24 +17,24 @@ import numpy as np
 import epispot as epi
 
 # GLOBALS
-R_0 = epi.params.R_0(type='bell')
-gamma = epi.params.Gamma(R_0=R_0, beta=2.5)
+r_0 = epi.params.RNaught(type='bell')
+gamma = epi.params.Gamma(r_0=r_0, beta=2.5)
 
 
 # TESTS
-def test_SIRS():
+def test_sirs():
     """
     Recurrent SIR Model:
     Susceptible → Infected → Removed → Susceptible
 
     """
     # params
-    N = 1e6
+    n = 1e6
 
     # compile compartments
-    Susceptible = epi.comps.Susceptible(R_0, gamma, N)
-    Infected = epi.comps.Infected()
-    Removed = epi.comps.Removed()
+    susceptible = epi.comps.Susceptible(r_0, gamma, n)
+    infected = epi.comps.Infected()
+    removed = epi.comps.Removed()
 
     # compile parameters
     matrix = np.empty((3, 3), dtype=tuple)
@@ -43,20 +43,20 @@ def test_SIRS():
     matrix[2][0] = (0.5, 1.0)       # R => S
 
     # compile model
-    SIRS_Model = epi.models.Model(N)
-    SIRS_Model.add(Susceptible, [1], matrix[0])
-    SIRS_Model.add(Infected, [2], matrix[1])
-    SIRS_Model.add(Removed, [0], matrix[2])
-    SIRS_Model.compile()
+    sirs_model = epi.models.Model(n)
+    sirs_model.add(susceptible, [1], matrix[0])
+    sirs_model.add(infected, [2], matrix[1])
+    sirs_model.add(removed, [0], matrix[2])
+    sirs_model.compile()
 
     # get solutions
-    Solution = SIRS_Model.integrate(
-        range(100), starting_state=np.array([N - 10, 10, 0])
+    solution = sirs_model.integrate(
+        range(100), starting_state=np.array([n - 10, 10, 0])
     )
-    predicted = np.around(Solution[99], -2)
+    predicted = np.around(solution[99], -2)
     assert np.allclose(predicted, np.array([400000, 200000, 400000]))
 
-def test_SIHCR():
+def test_sihcr():
     """
     Critical compartment test (without triage*):
 
@@ -68,14 +68,14 @@ def test_SIHCR():
 
     """
     # params
-    N = 1e6
+    n = 1e6
 
     # compile compartments
-    Susceptible = epi.comps.Susceptible(R_0, gamma, N)
-    Infected = epi.comps.Infected()
-    Hospitalized = epi.comps.Hospitalized()
-    Critical = epi.comps.Critical()
-    Removed = epi.comps.Removed()
+    susceptible = epi.comps.Susceptible(r_0, gamma, n)
+    infected = epi.comps.Infected()
+    hospitalized = epi.comps.Hospitalized()
+    critical = epi.comps.Critical()
+    removed = epi.comps.Removed()
 
     # compile parameters
     matrix = np.empty((5, 5), dtype=tuple)
@@ -88,17 +88,17 @@ def test_SIHCR():
     matrix[3][4] = (1.0, gamma)                     # C => R
 
     # compile model
-    SIHCR_Model = epi.models.Model(N)
-    SIHCR_Model.add(Susceptible, [1], matrix[0])
-    SIHCR_Model.add(Infected, [2, 4], matrix[1])
-    SIHCR_Model.add(Hospitalized, [3, 4], matrix[2])
-    SIHCR_Model.add(Critical, [4], matrix[3])
-    SIHCR_Model.add(Removed, [], matrix[4])
-    SIHCR_Model.compile()
+    sihcr_model = epi.models.Model(n)
+    sihcr_model.add(susceptible, [1], matrix[0])
+    sihcr_model.add(infected, [2, 4], matrix[1])
+    sihcr_model.add(hospitalized, [3, 4], matrix[2])
+    sihcr_model.add(critical, [4], matrix[3])
+    sihcr_model.add(removed, [], matrix[4])
+    sihcr_model.compile()
 
     # get solutions
-    Solution = SIHCR_Model.integrate(np.linspace(0, 20, 100))
-    predicted = np.around(Solution[99], -2)
+    solution = sihcr_model.integrate(np.linspace(0, 20, 100))
+    predicted = np.around(solution[99], -2)
     assert np.allclose(
         predicted,
         np.array([2.115e5, 1.000e2, 1.000e2, 5.000e2, 7.877e5])
