@@ -1,13 +1,13 @@
 name: Auto-Generate Documentation
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - epispot/*
-      - README.md  # documentation uses README via `.. include`
-      - .github/workflows/*
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - epispot/*
+  #     - README.md  # documentation uses README via `.. include`
+  #     - .github/workflows/*
 
 jobs:
   build:
@@ -22,12 +22,7 @@ jobs:
         python-version: '3.10'
     - name: Install dependencies
       run: |
-        pip install pdoc3
-        pip install numpy
-        pip install matplotlib
-        pip install SciencePlots
-        pip install pandas
-        pip install plotly
+        bash scripts/runner/build.sh
     - name: Configure Git
       run: |
         git config user.name github-actions
