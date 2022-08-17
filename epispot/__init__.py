@@ -128,7 +128,7 @@ Build stability:
 
 
 # local
-from . import comps, estimates, models, params, plots, pre, analysis
+from . import analysis, comps, estimates, models, params, plots, pre
 
 # metadata
 source = 'https://www.github.com/epispot/epispot'
