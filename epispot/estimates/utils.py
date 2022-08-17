@@ -1,5 +1,5 @@
 """
-The `epispot.utils` module contains miscellaneous utilities for grouping and manipulating estimates stored in `epispot.estimates.data`.
+The `epispot.estimates.utils` module contains miscellaneous utilities for grouping and manipulating estimates stored in `epispot.estimates.data`.
 It can also be used to import estimates that epispot does not already have.
 
 """

@@ -1,5 +1,5 @@
 """
-The `epispot.getters` module contains various scripts for listing,
+The `epispot.estimates.getters` module contains various scripts for listing,
 querying, and loading data from the literature.
 Alternatively, the data can be loaded directly from `epispot.estimates.data`.
 
