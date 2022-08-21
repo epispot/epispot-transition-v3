@@ -56,7 +56,7 @@ def active(deltas, period, delay=0):
         if i < period - delay:
             active.append(sum(deltas[:i + delay + 1]))
         else:
-            active.append(sum(deltas[i - period + delay : i + delay + 1]))
+            active.append(sum(deltas[i - period + delay:i + delay + 1]))
     
     return active
 
