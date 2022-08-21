@@ -48,5 +48,5 @@ jobs:
         mkdir -p en/latest/  # recreate empty directory after being deleted in previous step
         mv stash1/epispot/* en/latest/
         git add .
-        git commit -m "Updated Documentation"
+        git commit -m "[docs]: Update documentation"
         git push

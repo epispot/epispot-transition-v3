@@ -45,5 +45,5 @@ jobs:
       continue-on-error: true
       run: |
         git add .
-        git commit -m "[auto] Fix code style"
+        git commit -m "[auto]: Fix code style"
         git push
