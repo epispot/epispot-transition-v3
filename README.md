@@ -95,8 +95,10 @@ The GitHub repository has a vast array of samples using epispot. We are currentl
 
 **PyPI**: ![latest-release](https://shields.mitmproxy.org/pypi/v/epispot.svg?color=success)
 [![Downloads](https://pepy.tech/badge/epispot)](https://pepy.tech/project/epispot)
+
 **LGTM**: [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/quantum9Innovation/epispot.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/quantum9Innovation/epispot/context:python)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/quantum9Innovation/epispot.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/quantum9Innovation/epispot/alerts/)
+
 **Codecov**: [![codecov](https://codecov.io/gh/epispot/epispot/branch/master/graph/badge.svg?token=WGIM127RFY)](https://codecov.io/gh/epispot/epispot)
 
 ## Feedback
@@ -127,8 +129,8 @@ For research, you can also use epispot's DOI to reference the project:
 > [![DOI](https://zenodo.org/badge/280527664.svg)](https://zenodo.org/badge/latestdoi/280527664)
 
 The recommended citation for epispot is:
-> quantum9innovation (2021, April 2). epispot/epispot: (Version 2.1.1).
-> Zenodo. <http://doi.org/10.5281/zenodo.4624423>
+> quantum9innovation (2022, August 20). epispot/epispot: (Version 3.0.0-rc-1).
+> Zenodo. <http://doi.org/10.5281/zenodo.5136721>
 
 ## Related Work
 
