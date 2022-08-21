@@ -2,7 +2,8 @@
 
 Latest stable release: 2.1.1\
 Latest nightly release: 2.1.1.15\
-Latest alpha release: 3.0.0-alpha-3
+Latest alpha release: 3.0.0-alpha-3\
+Latest release candidate: 3.0.0-rc-1
 
 Releases are listed from most recent to least recent. All alpha and in-development versions are released to the [epispot-nightly](https://pypi.org/project/epispot-nightly/) project while all other releases are shipped to the [main project](https://pypi.org/project/epispot/).
 
@@ -18,7 +19,8 @@ Below is the official list of epispot versions and their support status. If we p
 | 2.0   | 2.0.2 | :x: | ✔️ |
 | <= 1.1   | 1.1.0 | :x: | :x: | Deprecated |
 | nightly latest   | 2.1.1.15 | :x: | :x: | Deprecated |
-| **3.0.0-alpha** | **3.0.0a3** | **✔️** | **✔️** | **Supported until beta release of v3** |
+| 3.0.0-alpha | 3.0.0a3 | :x: | ✔️ | Suspended (partial support until the release of a stable v3) |
+| 3.0.0-rc | 3.0.0rc1 | ✔️ | ✔️ | Supported until release of a stable v3 or another release candidate |
 | nightly < latest  | 2.1.1.x | :x: | :x: | Deprecated |
 
 ---
@@ -33,9 +35,46 @@ For epispot v3.0.0:
 | v3.0.0-alpha-2 | N/A | 12/31/21 |
 | v3.0.0-alpha-3 | 10/18/21 | 12/31/21 |
 | ~~v3.0.0-beta~~ | skipped | N/A |
+| v3.0.0-rc-1 | released | undecided |
 | v3.0.0 | **pending** | LTS |
 
 ---
+
+## 3.0.0-rc-1
+
+> **Note**
+> No links are available for the changes in this release because development was carried out on an alternate repository in an attempt to completely overhaul the project.
+> Additionally, repository history before this release has been cleaned to ensure that the project is in a state that is ready for a stable release.
+> All prior changes can be found in the [archive repository](https://github.com/epispot/epispot-archive).
+
+This release marks the first release candidate prior to the official release of v3.0.0.
+It is packed with new features and bugfixes intended to be released after intense testing.
+It also is a complete overhaul of previous releases in terms of repository structure and aims to maintain most of the same compatibility as the previous alpha releases while modernizing the project for the official v3 release.
+
+Python 3.7 is officially no longer supported, and epispot will no longer undergo CI testing on Python 3.7.
+Instead, only Python 3.8, 3.9, and 3.10 will be supported; we plan to support Python 3.11 when it is released.
+
+All documentation has undergone massive changes to ensure that it conforms to a set style guide and also that it is easily understandable.
+Still, there is a lot more work to do to ensure that documentation is production-ready, which will be done while epispot v3 is in development.
+
+A new feature now allows users to specify a `delta` parameter in the `Model.integrate()` method for more precise Euler integration.
+This allows highly variable models to be plotted with greater accuracy by increasing the number of timesteps within a day.
+
+Perhaps the biggest change feature-wise is the introduction of the `estimates` subpackage.
+This subpackage contains a plethora of parameter estimates from the literature that can be used to quickly create new models.
+It also integrates with the `params` module so that it can be seamlessly used in all epispot models.
+There's also a (not quite complete) `analysis` subpackage for processing raw data and performing statistical analyses.
+
+Speaking of models, they can now be saved to and loaded from files with the `Model.save()` and `Model.load()` methods, respectively.
+We use `dill` to do the serialization, which makes all model objects extremely lightweight.
+
+In terms of QA testing, we have added a myriad of new tools to assist with our goal of ensuring ultimate quality.
+Among them are `flake8` and `isort`, which work in parallel to automatically identify and fix style issues.
+Workflows and tests have also been updated to expand coverage testing and minimize errors.
+
+This is a **huge** release and there are a *lot* of new changes.
+We highly encourage you to check them out by reading the documentation [here](https://epispot.github.io/epispot/en/latest/)!
+While we develop epispot v3, you can also look at how we're using these features internally at epispot by examining our organization's official [COVID notebook](https://covid-notebook.herokuapp.com).
 
 ## 3.0.0-alpha-3
 

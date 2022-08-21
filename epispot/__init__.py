@@ -2,7 +2,7 @@
 .. include:: ../README.md
 <!--
 Documentation available at:
-https://epispot.github.io/epispot/en/v3.0.0-alpha-3
+https://epispot.github.io/epispot/en/v3.0.0-rc-1
 -->
 """
 
@@ -89,22 +89,22 @@ def cite(bibtex=False):
     Use `bibtex=True` to return the BibTeX-formatted citation.
     """
     if bibtex:
-        return '''@software{q9i_2021_4624423,
+        return '''@software{q9i_2022_5136721,
   author       = {quantum9innovation},
   title        = {epispot/epispot:},
-  month        = apr,
-  year         = 2021,
+  month        = aug,
+  year         = 2022,
   publisher    = {Zenodo},
-  version      = {2.1.1},
-  doi          = {10.5281/zenodo.4624423},
-  url          = {https://doi.org/10.5281/zenodo.4624423}
+  version      = {3.0.0-rc-1},
+  doi          = {10.5281/zenodo.5136721},
+  url          = {https://doi.org/10.5281/zenodo.5136721}
 }'''
     else:
-        return 'quantum9innovation (2021, April 2). epispot/epispot: (Version 2.1.1). Zenodo. <http://doi.org/10.5281/zenodo.4624423>'
+        return 'quantum9innovation (2022, August 20). epispot/epispot: (Version 3.0.0-rc-1). Zenodo. <http://doi.org/10.5281/zenodo.5136721>'
 
 
 # version info
-version = '3.0.0'
+version = '3.0.0-rc-1'
 """
 epispot's version info (updated every release)\n
 Check version information with:
