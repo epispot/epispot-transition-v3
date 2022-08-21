@@ -63,7 +63,6 @@
 bin/                @Quantalabs
 scripts/            @quantum9innovation
 requirements/       @Quantalabs
-travis/             @Quantalabs
 
 /.github/                       @Quantalabs
 /.github/ISSUE_TEMPLATE/        @quantum9innovation
