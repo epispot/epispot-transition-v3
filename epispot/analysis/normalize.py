@@ -41,11 +41,11 @@ def active(deltas, period, delay=0):
     `period (int)`: The average period of infectiousness.
 
     `delay=0 (int)`: The average delay before tests are administered to those infected with the disease.
-    
+
     .. note::
         If `delay` is changed to any value other than `0`, the resulting list will be shorter than the original list by exactly `delay` timesteps.
         This is because there is no data to remedy the testing delay during these days.
-    
+
     ## Returns
 
     A list of active cases at any given time (`list[int]`)
@@ -57,22 +57,22 @@ def active(deltas, period, delay=0):
             active.append(sum(deltas[:i + delay + 1]))
         else:
             active.append(sum(deltas[i - period + delay:i + delay + 1]))
-    
+
     return active
 
 def cumulative(deltas):
     """
     Convert a list of new cases per day to a list of cumulative cases.
     This is useful for plotting the cumulative cases over time.
-    
+
     ## Parameters
-    
+
     `deltas (list[int])`: The list of new cases per day.
-    
+
     ## Returns
-    
+
     A list of cumulative cases (`list[int]`)
-    
+
     """
     return [sum(deltas[:i + 1]) for i, _ in enumerate(deltas)]
 
@@ -80,40 +80,40 @@ def deltas(cumulative):
     """
     Convert a list of cumulative cases to a list of new cases per day.
     This is useful for plotting the new cases over time.
-    
+
     ## Parameters
-    
+
     `cumulative (list[int])`: The list of cumulative cases.
-    
+
     ## Returns
-    
+
     A list of new cases per day (`list[int]`)
-    
+
     """
     out = [cumulative[0]]
     for i in range(1, len(cumulative)):
         out.append(cumulative[i] - cumulative[i - 1])
-    
+
     return out
 
 def shift(count, delay):
     """
     Shift counts by a given amount.
     This is useful for shifting the data by a given amount to account for testing or other reporting delays.
-    
+
     ## Parameters
-    
+
     `count (list[int])`: The list of counts to be shifted.
 
     `delay (int)`: The number of days by which reporting was delayed.
 
     .. note::
         If `delay` is changed to any value other than `0`, the resulting list will be shorter than the original list by exactly `delay` timesteps.
-    
+
     ## Returns
-    
+
     A list of shifted counts (`list[int]`)
-    
+
     """
     return count[delay:]
 
@@ -134,11 +134,11 @@ def bound(active, deltas, deaths):
     `deltas (list[int])`: The list of new cases per day.
 
     `deaths (list[int])`: The list of new deaths per day.
-    
+
     ## Returns
-    
+
     A list of bounded new deaths per day (`list[int]`)
-    
+
     """
     bounded = []
     for i, death in enumerate(deaths):
@@ -146,7 +146,7 @@ def bound(active, deltas, deaths):
             bounded.append(death)
         else:
             bounded.append(min(
-                death, 
+                death,
                 -(active[i] - active[i - 1] - deltas[i])
             ))
 
@@ -160,23 +160,23 @@ def recovered(active, deltas, deaths):
     .. important::
         To avoid negative numbers, use `epispot.analysis.bound` to bound the number of deaths at any given timestep.
         Without this, small errors in fatality reporting can result in negative numbers of recovered individuals.
-    
+
     ## Parameters
-    
+
     `active (list[int])`: The list of active cases at any given time.
 
     `deltas (list[int])`: The list of new cases per day.
-    
+
     `deaths (list[int])`: The list of new deaths per day.
-    
+
     ## Returns
-    
+
     A list of new recovered cases per day (`list[int]`)
 
     .. note::
         The first element of the returned list will be `0`, because it is impossible to calculate the net change in active cases at time `0`,
         and thus the number of recovering individuals.
-    
+
     """
     recovered = [0]
     for i in range(1, len(active)):
